@@ -1,4 +1,4 @@
-# DMSBanditMissions
+# DMS Bandit Missions
 DMS Bandit Missions Pack
 
 >>	Templates and original stock missions created by Defent and eraser1
