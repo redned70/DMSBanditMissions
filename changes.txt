@@ -1,0 +1,79 @@
+>>	Templates and original stock missions created by Defent and eraser1
+>>	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+>>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Updated 16 July 2016 > V 3.0 - Release
+1. Changed the random call from 
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+to
+_difficulty = selectRandom _PossibleDifficulty;
+2. Changed difficulty match from
+if (_difficulty isEqualTo "easy") then {
+to
+switch (_difficulty) do
+{	case "easy":	{
+*** #1 and #2 is to match the way DMS has released some of the missions from this pack and to make updates easier in the future ***
+3. Consolidated start messages into 1 line as I saw how eraser1 had changed scripts for including into DMS and realised I missed a trick as this reduces the amount of lines in the script.
+4. Consolidated some of the item content choices as I had listed the same lines in all outcomes but really just needed to list once to reduce size of script (again thanks eraser1).
+5. Adjusted some spacing, line breaks and tabs as it reduces the overall size and was not really needed.
+6. Changed terrorists to bandits to keep in the Bandit Missions theme, and corrected some English grammar.
+7. Added % chance of persistent vehicle to more missions so it can be adjusted by user.
+8. Changed CoinToss possibilities a % number.
+9. Removed several mistakes in brackets - I don't know how I missed them or why it worked anyway but I fixed them.
+10. Balanced some AI and loot as they were a little under or over what you would expect from the missions.
+11. Added a graded %chance for persistent vehicles on some missions - check the spreadsheet for details.
+12. ***NEW MISSION*** - nedbandit1, no crate but loot and cash spawn inside the vehicle. This has almost every function I have been working on inside including 2 groups of custom AI - kind of like the old Mayor missions of the Arma 2 days where one Ai is dressed differently from the rest. It is a working concept and "how to" mission so not only works as a mission but can help people design and release more of their own.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Updated 14 June 2016 > V 2.0 - Release
+1. Changed Difficulty chance mechanism to use the BIS_fnc_selectRandom function.
+2. Added all possible difficulties into file and let user decide what to pick from.
+3. Removed suffix's from mission as all could now easily do all 4 difficulties.
+4. Added more randomisation to crate filling for all missions.
+5. Balanced missions against each other a little better.
+6. Added persistent vehicles to some missions when it goes into hardcore but other difficulties remain non-persistent including:
+don'tHasseltheHoff
+nedbuilding1_mission
+nedguns1_mission
+nedmedical1_mission
+nedresearch_mission
+7. nedcar and nedHatchback missions now have chance of better car for hardcore difficulty
+8. Thieves, nedlittlebird missions don't give persistent vehicles on easy difficulty.
+9. Added random choice of SUV's into car dealer mission plus 50/50 chance for either 1 or 2 vehicles.
+10. nedUral and nedOffroad missions give 50/50 chance of persistent vehicle when mission is on easy difficulty.
+11. nedSniper mission has been consolidated to include hardcore with persistent vehicle and also the multi squad AI formations.
+12. nedHunter, nedIfrit and  nedStrider missions on easy spawn non persistent vehicle, 50% chance persistent on moderate and 100% persistent on difficult and hardcore.
+I have tried to keep the section formatting of the scripts for ease of editing although it may not be the most optimal way.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Update 12 April > V 1.1 - Release
+1. Added 6 new missions with multiple possible vehicle prize variations.
+nedcar_mission_e
+nedhatchback_mission_em
+nedifrit_mission_dh
+nedoffroad_mission_em
+nedstrider_mission_dh
+nedural_mission_emd
+
+2. Adjusted little bird mission to select from all possible little bird variations.
+nedlittlebird_mission_mdh
+
+3. Added some extra randomising of loot crate contents.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Updates March 2016 > V 1.0 - Release
+1. Fixed incorrect name on 3 custom missions in error log just in case.
+2. Added persistant vehicle to the nedsnipercamp_mission_hard mission.
+3. Swapped any none default Exile vehicles for normal Exile vehicles.
+4. Created randomising for difficulty of each custom mission in one file.
+5. Added suffix to show which types of mission are in the file 
+_emdh 	= easy, moderate, difficult, hardcore
+_emd 	= easy, moderate, difficult
+_md 	= moderate, difficult
+_dh		= difficult, hardcore
+etc .....
+6. Added a few new custom missions.
+7. Completed converting all stock missions to have multiple options of difficulty.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

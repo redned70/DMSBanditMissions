@@ -1,0 +1,349 @@
+easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+v3.0
+
+******************** General and lessons learned ********************
+1. The new mission "nedbandit1_mission" was an attempt to compile as many different code possibilities into one mission as possible and took a while to work out and i borrowed code (thanks second_coming) and got help from lots of the community. It is a fully functioning mission and i currently have it live on my server.
+2. I have changed the random selection to _difficulty = selectRandom _PossibleDifficulty; as this mataches changes done when some of the missions got put into the default DMS package, but i also found that it was better at randomising than the Bis function.
+3. ALWAYS start local variables with an underscore or it reports as global (thanks to eraser1 again).
+4. Use the correct blank for empty strings or variables - [] for string, "" for variables (thanks to eraser1 again).
+5. Dont be afraid to ask for help.
+
+Thanks to eraser1, Defent, second_coming and BlackheartsGaming for helping with some bugs and code snippets.
+******************** code ********************
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"moderate",
+								"moderate",
+								"moderate",
+								"difficult",
+								"difficult",
+								"hardcore"
+							];
+//choose difficulty and set value
+_difficulty = selectRandom _PossibleDifficulty;
+
+switch (_difficulty) do
+{
+	case "easy":
+	{
+_AICount = (3 + (round (random 2)));							// Between 3 to 5 AI spawning
+_VehicleChance = 10;												//10% SpawnPersistentVehicle chance
+_crate_weapons 		= (2 + (round (random 3)));					// Between 2 to 5 weapons
+_crate_items 		= (2 + (round (random 4)));					// Between 2 to 6 items
+_crate_backpacks 	= (1 + (round (random 1)));					// Between 1 to 2 backpacks
+	};
+	case "moderate":
+	{
+_AICount = (4 + (round (random 2)));
+_VehicleChance = 20;												//20% SpawnPersistentVehicle chance
+_crate_weapons 		= (3 + (round (random 5)));
+_crate_items 		= (3 + (round (random 6)));
+_crate_backpacks 	= (2 + (round (random 1)));
+	};
+	case "difficult":
+	{
+_AICount = (4 + (round (random 3)));
+_VehicleChance = 30;												//30% SpawnPersistentVehicle chance
+_crate_weapons 		= (4 + (round (random 7)));
+_crate_items 		= (4 + (round (random 8)));
+_crate_backpacks 	= (3 + (round (random 1)));
+	};
+	//case "hardcore":
+	default
+	{
+_AICount = (4 + (round (random 4)));
+_VehicleChance = 90;												//90% SpawnPersistentVehicle chance
+_crate_weapons 		= (5 + (round (random 9)));
+_crate_items 		= (5 + (round (random 10)));
+_crate_backpacks 	= (4 + (round (random 1)));
+	};
+};
+						
+******************** /code ********************
+
+add to private[] , "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"							
+******************** variables ********************		
+_msgStart = ['#FFFF00',"your message here"];
+_AICount = (1 + (round (random 1)));						
+_crate_weapons 		= (1 + (round (random 1)));
+_crate_weapon_list	= ["itemname","itemname2"];
+_crate_items		= (1 + (round (random 1)));
+_crate_item_list	= ["itemname","itemname2"];
+_crate_backpacks	= (1 + (round (random 1)));								
+******************** /variables ********************		
+
+******************** group code ********************
+_group =
+[
+	_pos,					// Position of AI
+	_AICount,				// Number of AI >>selected from difficulty choice
+	_difficulty,			// "random","hardcore","difficult","moderate", or "easy" >>selected from difficulty choice
+	"random", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
+	_side 					// "bandit","hero", etc.
+] call DMS_fnc_SpawnAIGroup;
+******************** /group ********************
+
+******************** crate code ********************
+_crate_loot_values =
+[
+	_crate_weapons,			// Weapons >>selected from difficulty choice
+	_crate_items,			// Items >>selected from difficulty choice
+	_crate_backpacks 		// Backpacks >>selected from difficulty choice
+];
+or
+_crate_loot_values =
+[
+	[_crate_weapons,_crate_weapon_list],			// Weapons + weapons to select from>>selected from difficulty choice
+	[_crate_items,_crate_item_list],				// Items + items to select from >>selected from difficulty choice
+	_crate_backpacks 								// Backpacks >>selected from difficulty choice
+];
+
+
+>>>> removing crate remember to set
+_missionObjs =
+[
+	_staticGuns+[_veh],				// armed AI vehicle and static guns
+	[_vehicle],						//this is prize vehicle
+	[]								//this line is crate make it []
+];
+******************** /crate ********************	
+
+******************** choose vehicle ********************
+//create possible vehicle list
+_PossibleVehicleClass 		= [	
+								"Exile_Car_Lada_Green",
+								"Exile_Car_Lada_Taxi",
+								"Exile_Car_Lada_Red",
+								"Exile_Car_Lada_White",
+								"Exile_Car_Lada_Hipster",
+								"Exile_Car_Volha_Blue",
+								"Exile_Car_Volha_White",
+								"Exile_Car_Volha_Black"
+							];
+//choose the vehicle
+_VehicleClass = selectRandom _PossibleVehicleClass;		
+******************** now spawn the randomised persistant vehicle ********************
+//DMS_fnc_SpawnPersistentVehicle will automatically turn the pincode into a string and format it.
+_pinCode = (1000 +(round (random 8999)));
+_vehicle = [_VehicleClass,[(_pos select 0) -30, (_pos select 1) -30],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+******************** /choose vehicle ********************
+
+******************** Persistent vehicle on hardcore only ********************
+// If hardcore give pincoded vehicle, if not give normal non persistent	
+if (_difficulty isEqualTo "hardcore") then {
+												_pinCode = (1000 +(round (random 8999)));
+												_vehicle = [_vehClass,[(_pos select 0), (_pos select 1)],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_msgWIN = ['#0080ff',format ["Convicts secured KITT; that will show the bandits not to Hassle the Hoff, KITTs entry code is %1...",_pinCode]];
+											} else
+											{
+												_vehicle = [_vehClass,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
+												_msgWIN = ['#0080ff',"Convicts secured KITT; that will show the bandits not to Hassle the Hoff!"];
+											};
+******************** /Persistent vehicle on hardcore only ********************
+
+******************** Persistent vehicle % chance ********************
+This has now been simplified from CoinToss to comparing _VehicleChance (set in diffficulty at top) to a random number 0-100. It means the code is smaller over all and also you dont have to do any maths to work out the %chance entered with using heads and tails etc.
+
+// is %chance greater than random number
+if (_VehicleChance >= (random 100)) then {
+												_pinCode = (1000 +(round (random 8999)));
+												_vehicle = [_vehicleP,[(_pos select 0), (_pos select 1)],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_msgWIN = ['#0080ff',format["Convicts have successfully eliminated the %1 bandit outlaw, entry code is %2 ...",_colour,_pinCode]];
+												_Vwin = "Win";	//just for logging purposes
+											} else
+											{
+												_vehicle = [_vehicleP,[(_pos select 0), (_pos select 1),0],[], 0, "CAN_COLLIDE"] call DMS_fnc_SpawnNonPersistentVehicle;
+												_msgWIN = ['#0080ff',format["Convicts have successfully eliminated the %1 bandit outlaw",_colour]];
+												_Vwin = "Lose";	//just for logging purposes
+											};	
+This example is from the new mission and has an extra log value so i can check to see everything is working.											
+******************** /Persistent vehicle % chance ********************
+
+******************** Old Coin Toss ********************
+I only used the phrase so i would know what i was doing but you can make it an infinitely sided coin!
+50/50
+_CoinTossP = ["Lose", "Win"];
+_CoinToss = selectRandom _CoinTossP;
+
+33/66
+_CoinTossP = ["Lose", "Win", "Win"];
+_CoinToss = selectRandom _CoinTossP;
+or 66/33
+_CoinTossP = ["Lose", "Lose", "Win"];
+_CoinToss = selectRandom _CoinTossP;
+
+******************** Alternative Coin Toss ******************** 
+I have used a 50/50 split directly in some places as the whole coin toss was fairly large, useful, but large and in the places it was just not required to be that big a script the coin toss has changed from 
+
+_CoinTossP = ["Lose", "Win"];
+_CoinToss = selectRandom _CoinTossP;
+
+to just
+if ((round (random 1)) isEqualTo 0) then
+
+Again an idea from some missions being included in the DMS base files and adjustments that Defent/eraser1 did but also useful for nested chance calculations.
+******************** /Coin Toss ********************
+
+******************** Messages ********************
+In order to cut down on some code i forgot about just adding the difficulty into the message like this (reduces 4 lines to 1 every time it happens)
+
+// define start messages with difficulty choice
+_msgStart = ['#FFFF00',format["A transport truck carrying beer and guns is being robbed, stop the %1 robbers and steal the loot!",_difficulty]];
+
+I went a bit further on new mission
+
+// define start messages with difficulty choice
+_msgStart = ['#FFFF00',format["A %1 class bandit outlaw has escaped, go kill this %2 outlaw!",_colour,_difficulty]];
+
+// Define Mission Win message - defined in persistent vehicle toss						<<<< Has to be chosen inside the persistent vehicle choice
+
+// Define Mission Lose message
+_msgLOSE = ['#FF0000',format["The %1 bandit outlaw has escaped",_colour]];
+
+// Define mission name (for map marker and logging) - defined in colour choice 			<<<< Has to be defined in mission choice at top as you cant add the ",colour" into the map marker and these missions happen to be coloured in name and in difficulty -  you will see it when you see the mission.
+
+******************** /Messages ********************	
+
+******************** Logging ********************
+In my new mission i needed to see all variables being chosen, as there are a few, to make sure each variation did what it was supposed to, this time i decided to leave the logging line in for people to see what i used and goes AFTER all variables listed in the log line are chosen. If you add it before then the log line will error as not everything is available until the final choice has been made (difficulty/persistent etc).
+
+//export to logs for testing - comment next line out for no log
+diag_log format ["nedbandit1 :: Called MISSION with these parameters: >>AI Group: %1 (plus leader) >>Cash: %2 >>Vwin: %3 >>Colour: %4 >>Difficulty: %5 >>Vehicle: %6",_AICount,_cash,_Vwin,_colour,_difficulty,_vehicleP];
+
+Produces RPT log of
+14:09:08 "nedbandit1 :: Called MISSION with these parameters: >>AI Group: 8 (plus leader) >>Cash: 1069 >>Vwin: Lose >>Colour: red >>Difficulty: moderate >>Vehicle: Exile_Car_SUV_Red"
+
+******************** /Logging ********************
+
+******************** Loading loot into vehicle rather than crate ********************
+I used some code from the DMS Occupation system by second_coming as it did everything i wanted with minimal adjustments required.
+
+You need to set up a list of items that could be put inside the vehicle:
+_ned_VehicleItems = [["U_NikosAgedBody",1,3], ["U_NikosBody",1,4], ["H_Cap_press",1,3],["H_StrawHat_dark",1,3], ["Exile_Item_EMRE",1,4], ["Exile_Item_PlasticBottleCoffee",1,4], ["ItemGPS",1,3], ["hgun_Rook40_F",1,4], ["hgun_ACPC2_F",2,2], ["9Rnd_45ACP_Mag",4,4], ["16Rnd_9x21_Mag",4,4]];
+
+Formatting is "item-name",<min number>,<add max random 0-this number>
+So ["9Rnd_45ACP_Mag",4,4] gives a min of 4 + (0 to 4) 9Rnd_45ACP_Mag's - so 4-8 mags
+
+Then you use that to load the _vehicle in this case although
+
+// no crate so load vehicle with basic goodies
+	clearMagazineCargoGlobal _vehicle;					>>>> make sure vehicle is empty of magazines
+	clearWeaponCargoGlobal _vehicle;					>>>> make sure vehicle is empty of weapons
+	clearItemCargoGlobal _vehicle;						>>>> make sure vehicle is empty of items						
+	{
+		_item = _x select 0;
+		_amount = _x select 1;
+		_randomAmount = _x select 2;
+		_amount = _amount + (random _randomAmount);
+		_itemType = _x call BIS_fnc_itemType;			>>>> this works out what type of item you are trying to add due to item types being added differently
+
+		if((_itemType select 0) == "Weapon") then {_vehicle addWeaponCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Magazine") then {_vehicle addMagazineCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Item") then {_vehicle addItemCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Equipment") then {_vehicle addItemCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Backpack") then {_vehicle addBackpackCargoGlobal [_item, _amount];};
+	}forEach _ned_VehicleItems;							>>>> Loop loading different types of item into vehicle
+// load tabs in
+_vehicle setVariable ["ExileMoney", _cash,true]; 		>>>> this is how to add poptabs to the vehicle (thanks @BlackheartsGaming)
+
+******************** /Loading loot into vehicle ********************
+
+******************** Custom multiple AI groups ********************
+Custom AI groups gave me a headache, not really for the custom AI side but the markers as no matter what i did for a while it would show the single AI group as the AI left or the group without the single AI and then the trigger for win also proved as tricky and at stages you could win killing the main group but the single being alive or vice-versa.
+
+
+The groups creation with custom isnt diffficult just a fair size. I know i created group2 before group1, this was during the "wtf is with the markers and win" phase but doesnt affect anything.
+
+// Create customised leader AI
+_customGearSet2 = 	[
+						"Exile_Weapon_M1014",												// String | EG: "LMG_Zafir_F"
+						[],																	// Array of strings | EG: ["optic_dms","bipod_03_F_blk"]
+						[["9Rnd_45ACP_Mag",1],["Exile_Magazine_8Rnd_74Pellets",3]],			// Array of arrays | EG: [["150Rnd_762x54_Box",2],["16Rnd_9x21_Mag",3],["Exile_Item_InstaDoc",3]]
+						"hgun_ACPC2_F",														// String | EG: "hgun_Pistol_heavy_01_snds_F"
+						["muzzle_snds_acp"],												// Array of strings | EG: ["optic_MRD","muzzle_snds_acp"]
+						["ItemGPS"],														// Array of strings | EG: ["Rangefinder","ItemGPS","NVGoggles"]
+						"",																	// String | EG: "launch_RPG32_F"
+						"H_StrawHat",														// String | EG: "H_HelmetLeaderO_ocamo"
+						"U_Competitor",														// String | EG: "U_O_GhillieSuit"
+						"V_BandollierB_blk",												// String | EG: "V_PlateCarrierGL_blk"
+						""																	// String | EG: "B_Carryall_oli"
+					];
+_group2 =
+[
+	_pos,					// Position of AI
+	1,						// Just 1 leader
+	_difficulty,			// chosen in difficulty
+	"custom", 				// "custom"
+	_side, 					// "bandit"
+	_customGearSet2			// customise with gear above
+] call DMS_fnc_SpawnAIGroup;
+
+
+// Create customised AI group
+_customGearSet = 	[
+						"Exile_Weapon_AK47",												// String | EG: "LMG_Zafir_F"
+						["optic_Holosight"],												// Array of strings | EG: ["optic_dms","bipod_03_F_blk"]
+						[["Exile_Magazine_30Rnd_762x39_AK",3],["9Rnd_45ACP_Mag",3]],		// Array of arrays | EG: [["150Rnd_762x54_Box",2],["16Rnd_9x21_Mag",3],["Exile_Item_InstaDoc",3]]
+						"hgun_ACPC2_F",														// String | EG: "hgun_Pistol_heavy_01_snds_F"
+						["muzzle_snds_acp"],												// Array of strings | EG: ["optic_MRD","muzzle_snds_acp"]
+						["ItemGPS"],														// Array of strings | EG: ["Rangefinder","ItemGPS","NVGoggles"]
+						"",																	// String | EG: "launch_RPG32_F"
+						"H_Cap_blk",														// String | EG: "H_HelmetLeaderO_ocamo"
+						"U_Marshal",														// String | EG: "U_O_GhillieSuit"
+						"V_BandollierB_blk",												// String | EG: "V_PlateCarrierGL_blk"
+						""																	// String | EG: "B_Carryall_oli"
+					];
+
+_group =
+[
+	_pos,					// Position of AI
+	_AICount,				// chosen in difficulty
+	_difficulty,			// chosen in difficulty
+	"custom", 				// "custom"
+	_side, 					// "bandit"
+	_customGearSet			// customise with gear above
+] call DMS_fnc_SpawnAIGroup;
+
+
+// Define mission-spawned AI Units
+_missionAIUnits =
+[
+	_group2,		// AI leader						<<<< you need both groups listed to make sure clean up occurs on all dead AI corpses
+	_group			// AI group
+];
+
+// Parse and add mission info to missions monitor
+_added =
+[
+	_pos,
+	[
+		[
+			"kill",
+			[_group,_group2]							<<<< this was the line that finally allowed win to only happen when all of both groups were dead, dont put on seperate lines or markers count wrong AI number
+		],
+		[
+			"playerNear",
+			[_pos,DMS_playerNearRadius]
+		]
+	],
+	[
+		_time,
+		(DMS_MissionTimeOut select 0) + random((DMS_MissionTimeOut select 1) - (DMS_MissionTimeOut select 0))
+	],
+	_missionAIUnits,
+	_missionObjs,
+	[_missionName,_msgWIN,_msgLOSE],
+	_markers,
+	_side,
+	_difficulty,
+	[]
+] call DMS_fnc_AddMissionToMonitor;
+
+
+This may not be the most effecient way to do it but it works and maybe i will learn later how to make this section smaller and easier for editing.
+
+******************** Custom multiple AI groups ********************

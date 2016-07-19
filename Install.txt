@@ -1,0 +1,161 @@
+*******************************************************
+	DMS Bandit Missions
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned
+	Created by [CiC]red_ned using templates by eraser1 
+	17 years of CiC http://cic-gaming.co.uk
+*******************************************************
+	For ANY MAP.
+	Running on DMS System
+	Built on DMS_Version: "July 3, 2016"
+*******************************************************
+Updated 16 July 2016 > V 3.0 - Release
+1. Changed the random call from 
+_difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
+to
+_difficulty = selectRandom _PossibleDifficulty;
+2. Changed difficulty match from
+if (_difficulty isEqualTo "easy") then {
+to
+switch (_difficulty) do
+{	case "easy":	{
+*** #1 and #2 is to match the way DMS has released some of the missions from this pack and to make updates easier in the future ***
+3. Consolidated start messages into 1 line as I saw how eraser1 had changed scripts for including into DMS and realised I missed a trick as this reduces the amount of lines in the script.
+4. Consolidated some of the item content choices as I had listed the same lines in all outcomes but really just needed to list once to reduce size of script (again thanks eraser1).
+5. Adjusted some spacing, line breaks and tabs as it reduces the overall size and was not really needed.
+6. Changed terrorists to bandits to keep in the Bandit Missions theme, and corrected some English grammar.
+7. Added % chance of persistent vehicle to more missions so it can be adjusted by user.
+8. Changed CoinToss possibilities a % number.
+9. Removed several mistakes in brackets - I don't know how I missed them or why it worked anyway but I fixed them.
+10. Balanced some AI and loot as they were a little under or over what you would expect from the missions.
+11. Added a graded %chance for persistent vehicles on some missions - check the spreadsheet for details.
+12. ***NEW MISSION*** - nedbandit1, no crate but loot and cash spawn inside the vehicle. This has almost every function I have been working on inside including 2 groups of custom AI - kind of like the old Mayor missions of the Arma 2 days where one Ai is dressed differently from the rest. It is a working concept and "how to" mission so not only works as a mission but can help people design and release more of their own.
+
+*******************************************************
+Installing.
+1. 	Copy contents of this folder>/missions/bandit/ into a3_dms.pbo /missions/bandit/ , you can remove old missions.
+2. 	Copy contents of this folder>/objects/ into a3_dms.pbo /objects/ , you do not have to replace any already in there (files dont go in the static folder)
+3. 	Extract main config.sqf
+4.	Find
+	DMS_BanditMissionTypes =
+5.	Replace current list of missions between [] or add in the new ones, this is mine as i balanced the new missions the same as their stock mission using 3 as normal mission priority (you dont really need the old versions of any of the Bandit missions as they are all replaced in this file).
+
+
+	DMS_BanditMissionTypes =			[			//	List of missions with spawn chances. If they add up to 100%, they represent the percentage chance each one will spawn
+											["bandits",3],
+											["bauhaus",3],
+											["beertransport",3],
+											["behindenemylines",3],
+											["blackhawkdown",3],
+											["cardealer",3],
+											["construction",3],
+											["donthasslethehoff",3],
+											["foodtransport",3],
+											["guntransport",3],
+											["humanitarian",3],
+											["lost_battalion",3],
+											["medical",3],
+											["mercbase",2],
+											["mercenaries",3],
+											["nedbandit1_mission",3],
+											["nedbuilding1_mission",3],
+											["nedcar_mission",4],
+											["nedguns1_mission",3],
+											["nedhatchback_mission",3],
+											["nedhunter_mission",2],
+											["nedifrit_mission",2],
+											["nedlittlebird_mission",2],
+											["nedmedical1_mission",3],
+											["nedoffroad_mission",3],
+											["nedresearch_mission",3],
+											["nedsnipercamp_mission",3],
+											["nedstrider_mission",2],
+											["nedural_mission",3],
+											["roguenavyseals",3],
+											["thieves",3],
+											["walmart",3]
+										];
+										
+										
+6.	Repack config.sqf and folders into PBO
+7. 	Put a3_dms.pbo back into /@ExileServer/addons/ on server and start.
+
+No BE or InfiSTAR additions apart from what you installed to run DMS. this will not run without DMS. 
+
+You can edit the mission text by changing the following in sqf mission files (depending which one you want to edit) 
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the attackers"];
+
+// Define Mission Win message
+_msgWIN = ['#0080ff',"Convicts grabbed all the building materials"];
+
+// Define Mission Lose message
+_msgLOSE = ['#FF0000',"The attackers stole everything!"];
+
+// Define mission name (for map marker and logging)
+_missionName = "Building Materials";
+
+
+Random choice of difficulty is now done from selecting from a list
+
+//create possible difficulty add more of one difficulty to weight it towards that
+_PossibleDifficulty		= 	[	
+								"easy",
+								"moderate",
+								"difficult",
+								"hardcore"
+							];
+
+Each difficulty has 25% chance but you can manipulate it to be more inclined to chose a difficulty over another by adding more lines e.g.
+
+_PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"moderate",
+								"difficult",
+								"hardcore"
+							];
+easy = 40% rest is 20% each
+
+_PossibleDifficulty		= 	[	
+								"easy",
+								"easy",
+								"easy",
+								"easy",
+								"moderate",
+								"moderate",
+								"moderate",
+								"moderate",
+								"difficult",
+								"hardcore"
+							];
+easy = 40% and moderate = 40% and only 10% for each of the others
+
+//Selections to chose from once difficulty has been decided>
+//easy
+if (_difficulty isEqualTo "easy") then {
+_AICount = (3 + (round (random 2)));
+_crate_weapons 		= (2 + (round (random 3)));
+_crate_items 		= (2 + (round (random 4)));
+_crate_backpacks 	= 1;
+								};
+//moderate
+if (_difficulty isEqualTo "moderate") then {
+_AICount = (4 + (round (random 2)));
+_crate_weapons 		= (4 + (round (random 5)));
+_crate_items 		= (4 + (round (random 6)));
+_crate_backpacks 	= 2;			
+								};
+//difficult
+if (_difficulty isEqualTo "difficult") then {
+_AICount = (4 + (round (random 3)));
+_crate_weapons 		= (6 + (round (random 7)));
+_crate_items 		= (6 + (round (random 8)));
+_crate_backpacks 	= 3;
+								};
+//hardcore								
+if (_difficulty isEqualTo "hardcore") then {
+_AICount = (4 + (round (random 4)));
+_crate_weapons 		= (8 + (round (random 9)));
+_crate_items 		= (8 + (round (random 10)));
+_crate_backpacks 	= 4;
+								};
