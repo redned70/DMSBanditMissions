@@ -1,6 +1,6 @@
 # DMS Bandit Missions
 DMS Bandit Missions Pack
-
+<b> Original thread http://www.exilemod.com/topic/12072-update32-dms-bandit-missions-either-new-or-reworked/?page=1 </b><br>
 >>	Templates and original stock missions created by Defent and eraser1<br>
 >>	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk<br>
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU <br>
@@ -10,12 +10,12 @@ Updated 16 July 2016 > V 3.0 - Release<br>
 1. Changed the random call from <br>
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 to
-_difficulty = selectRandom _PossibleDifficulty;
+_difficulty = selectRandom _PossibleDifficulty;<br>
 2. Changed difficulty match from <br>
 if (_difficulty isEqualTo "easy") then {
 to
 switch (_difficulty) do
-{	case "easy":	{
+{	case "easy":	{<br>
 *** #1 and #2 is to match the way DMS has released some of the missions from this pack and to make updates easier in the future ***<br>
 3. Consolidated start messages into 1 line as I saw how eraser1 had changed scripts for including into DMS and realised I missed a trick as this reduces the amount of lines in the script.<br>
 4. Consolidated some of the item content choices as I had listed the same lines in all outcomes but really just needed to list once to reduce size of script (again thanks eraser1).<br>
