@@ -6,7 +6,7 @@ DMS Bandit Missions Pack<br>
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU <br>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Updated 16 July 2016 > V 3.0 - Release<br>
+<b>Updated 16 July 2016 > V 3.0 - Release</b><br>
 1. Changed the random call from <br>
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 to
