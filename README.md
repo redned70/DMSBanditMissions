@@ -1,7 +1,7 @@
 # DMS Bandit Missions
 DMS Bandit Missions Pack
 
->>	Templates and original stock missions created by Defent and eraser1
+>>	Templates and original stock missions created by Defent and eraser1<br>
 >>	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
