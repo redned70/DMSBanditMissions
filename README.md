@@ -1,5 +1,5 @@
 # DMS Bandit Missions
-DMS Bandit Missions Pack
+DMS Bandit Missions Pack<br>
 <b> Original thread http://www.exilemod.com/topic/12072-update32-dms-bandit-missions-either-new-or-reworked/?page=1 </b><br>
 >>	Templates and original stock missions created by Defent and eraser1<br>
 >>	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk<br>
