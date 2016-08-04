@@ -1,6 +1,6 @@
 /*
 	Hunter Mission with new difficulty selection system
-	Vehicle not persistent on easy, 50/50 on moderate and 100% on difficult and hardcore
+	Mission gives % chance of persistent vehicle
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */

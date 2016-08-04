@@ -1,6 +1,6 @@
 /*
 	Research Mission with new difficulty selection system
-	Hardcore now gives persistent vehicle
+	Mission gives % chance of persistent vehicle
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 	based on work by Defent and eraser1
 */

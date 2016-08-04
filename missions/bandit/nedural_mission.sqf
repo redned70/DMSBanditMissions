@@ -1,6 +1,6 @@
 /*
 	Ural Mission with new difficulty selection system
-	Random select of Ural type with 50/50 chance of persistent vehicle on easy difficulty
+	Mission gives % chance of persistent vehicle
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */

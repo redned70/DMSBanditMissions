@@ -1,6 +1,6 @@
 /*
 	Sniper Camp Mission with new difficulty selection system
-	Hardcore has persistent vehicle
+	Mission gives % chance of persistent vehicle
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */

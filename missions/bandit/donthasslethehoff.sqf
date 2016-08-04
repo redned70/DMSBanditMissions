@@ -1,6 +1,6 @@
 /*
 	Dont Hassel the Hoff Mission with new difficulty selection system
-	Persistent vehicle on hardcore
+	Mission gives % chance of persistent vehicle
 	Created by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */

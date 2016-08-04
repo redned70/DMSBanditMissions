@@ -1,6 +1,6 @@
 /*
 	Littlebird Mission with new difficulty selection system
-	Easy difficulty vehicle is not persistent
+	Mission gives % chance of persistent vehicle
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
