@@ -1,0 +1,51 @@
+*******************************************************
+	DMS Z-Theme Missions Bandit Missions
+	easy/mod/difficult/hardcore - reworked by [CiC]red_ned
+	Created by [CiC]red_ned using templates by eraser1 
+	17 years of CiC http://cic-gaming.co.uk
+*******************************************************
+	For ANY MAP.
+	Running on DMS System
+	Built on DMS_Version: "July 3, 2016"
+*******************************************************
+Created 4 August 2016 > V 3.0 - Release
+6 simple missions with customised AI in white overalls and gasmasks with a virus kind of theme.
+*******************************************************
+Installing.
+1. 	Copy contents of this folder into a3_dms.pbo /missions/bandit/ 
+**No objects yet*** //2. 	Copy contents of this folder>/objects/ into a3_dms.pbo /objects/ , you do not have to replace any already in there (files dont go in the static folder)
+3. 	Extract main config.sqf
+4.	Find
+	DMS_BanditMissionTypes =
+5.	Replace current list of missions between [] or add in the new ones.
+
+
+	DMS_BanditMissionTypes =			[			//	List of missions with spawn chances. If they add up to 100%, they represent the percentage chance each one will spawn
+											["banditsZ",3],
+											["blackhawkdownZ",3],
+											["lost_battalionZ",3],
+											["medicalZ",3],
+											["mercenariesZ",3],
+											["thievesZ",3]
+										];
+										
+										
+6.	Repack config.sqf and folders into PBO
+7. 	Put a3_dms.pbo back into /@ExileServer/addons/ on server and start.
+
+No BE or InfiSTAR additions apart from what you installed to run DMS. this will not run without DMS. 
+
+You can edit the mission text by changing the following in sqf mission files (depending which one you want to edit) 
+// Define Mission Start message
+_msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the attackers"];
+
+// Define Mission Win message
+_msgWIN = ['#0080ff',"Convicts grabbed all the building materials"];
+
+// Define Mission Lose message
+_msgLOSE = ['#FF0000',"The attackers stole everything!"];
+
+// Define mission name (for map marker and logging)
+_missionName = "Building Materials";
+
+Check the custom section (it all has notes) for changing look and feel etc.
