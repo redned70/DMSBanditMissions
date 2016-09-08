@@ -147,7 +147,7 @@ _msgWIN = ['#0080ff',"Convicts have successfully eliminated the scientists!"];
 _msgLOSE = ['#FF0000',"The scientists escaped with the virus, prepare for more zombies!"];
 
 // Define mission name (for map marker and logging)
-_missionName = "Stolen Virus;
+_missionName = "Stolen Virus";
 
 // Create Markers
 _markers =
