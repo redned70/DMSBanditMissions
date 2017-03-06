@@ -8,3 +8,4 @@
 <b>Updated 16 July 2016 > V 3.0a - Release</b><br>
 This is just some extra missions reworked to run custom AI rather than standard bandits.<br>
 The mission theme was asked for and so a scientist kind of feel is used but you can adjust missions easily with custom costumes and mission messages<br>
+<b>This is a zombie feel, and does not contain zombies as DMS does not support them but just feels a little more like a zombie server may use</b>
