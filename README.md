@@ -6,6 +6,9 @@ DMS Bandit Missions Pack<br>
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU <br>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+<b>Updated 10 March 2017 > V3.1 - Release</b><br>
+Added new nedcashbandits_mission with %vehicle and cash prize <br>
+
 <b>Updated 16 July 2016 > V 3.0 - Release</b><br>
 1. Changed the random call from <br>
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;

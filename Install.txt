@@ -8,6 +8,9 @@
 	Running on DMS System
 	Built on DMS_Version: "July 3, 2016"
 *******************************************************
+Updated 10 March 2017 > V3.1 - Release
+Added new nedcashbandits_mission with %vehicle and cash prize
+
 Updated 16 July 2016 > V 3.0 - Release
 1. Changed the random call from 
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
@@ -59,6 +62,7 @@ Installing.
 											["nedbandit1_mission",3],
 											["nedbuilding1_mission",3],
 											["nedcar_mission",4],
+											["nedcashbandits_mission",3],
 											["nedguns1_mission",3],
 											["nedhatchback_mission",3],
 											["nedhunter_mission",2],
