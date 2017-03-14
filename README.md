@@ -6,6 +6,11 @@ DMS Bandit Missions Pack<br>
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU <br>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+<b>Updated 14 March 2017 > V3.1 - Release</b><br>
+Fixed - missing bracket on cashbandits mission <br>
+Fixed - logic off on ifrit mission for vehicle <br>
+Thanks to jweisner for spotting <br>
+
 <b>Updated 10 March 2017 > V3.1 - Release</b><br>
 Added new nedcashbandits_mission with %vehicle and cash prize <br>
 

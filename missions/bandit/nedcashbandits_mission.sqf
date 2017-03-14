@@ -137,7 +137,7 @@ _vehClass =
 // is %chance greater than random number
 if (_VehicleChance >= (random 100)) then {
 												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = [_vehClass,[(_pos,3+(random 5)],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_vehicle = [_vehClass,[(_pos,3+(random 5))],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
 												_msgWIN = ['#0080ff',format["Convicts have successfully taken care of the bandits and taken their cash and vehicle, entry code is %1 ...",_pinCode]];
 											} else
 											{
