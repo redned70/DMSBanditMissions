@@ -1,6 +1,6 @@
 /*
 	Car Dealer Mission with new difficulty selection system
-	Random SUV chosen for prizes, Mission gives % chance of persistent vehicle
+	Random SUV chosen for prizes, Mission gives % chance of 2nd vehicle
 	Created by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
@@ -127,6 +127,7 @@ _PossibleVehicleClass 		= [
 _vehClass1 = selectRandom _PossibleVehicleClass;
 _vehClass2 = selectRandom _PossibleVehicleClass;
 
+// vehicle 1 is always spawned
 _vehicle1 = [_vehClass1, [_pos,5+(random 3),_rndDir] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
 
 // Set crate loot values
@@ -143,7 +144,7 @@ _missionAIUnits =
 	_group 		// We only spawned the single group for this mission
 ];
 
-// is %chance greater than random number
+// is %chance greater than random number add 2nd vehicle and adjust clean up script to include
 if (_VehicleChance >= (random 100)) then {
 _vehicle2 = [_vehClass2, [_pos,5+(random 3),_rndDir+180] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
 _missionObjs =
