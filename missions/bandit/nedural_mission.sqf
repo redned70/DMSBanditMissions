@@ -182,7 +182,7 @@ _msgStart = ['#FFFF00',format["Bandits with a Ural have stopped for lunch. Go ki
 // Define Mission Win message in persistent vehicle choice
 
 // Define Mission Lose message
-_msgLOSE = ['#FF0000',"The attackers finsihed eating and drove off."];
+_msgLOSE = ['#FF0000',"The attackers finished eating and drove off."];
 
 // Define mission name (for map marker and logging)
 _missionName = "Ural Picnic";
