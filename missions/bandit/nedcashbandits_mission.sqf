@@ -5,7 +5,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_cash", "_VehicleChance"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_items", "_crate_backpacks", "_PossibleDifficulty", "_cash", "_VehicleChance", "_PossibleVehicleClass", "_VehicleClass"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -61,39 +61,106 @@ switch (_difficulty) do
 	case "easy":
 	{
 _AICount = (3 + (round (random 2)));
-_cash = (250 + round (random (500)));		//this gives 250 to 750 cash
-_VehicleChance = 20;						//20% SpawnPersistentVehicle chance
-_crate_weapons 		= 0;					//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
-_crate_items 		= 0;					//cash mission but you could add items e.g. = (2 + (round (random 4)));
-_crate_backpacks 	= 0;					//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
+_cash = (250 + round (random (500)));							//this gives 250 to 750 cash
+_VehicleChance = 20;											//20% SpawnPersistentVehicle chance
+_PossibleVehicleClass = [		"Exile_Car_Offroad_DarkRed",
+								"Exile_Car_Offroad_BlueCustom",
+								"Exile_Car_Lada_Green",
+								"Exile_Car_Lada_Taxi",
+								"Exile_Car_Lada_Red",
+								"Exile_Car_Lada_White",
+								"Exile_Car_Lada_Hipster",
+								"Exile_Car_Volha_Blue",
+								"Exile_Car_Volha_White",
+								"Exile_Car_Volha_Black",
+								"Exile_Car_Offroad_Guerilla01",
+								"Exile_Car_Offroad_Guerilla02",
+								"Exile_Car_Offroad_Guerilla03"
+						];										//possible vehicle list
+_crate_weapons 		= 0;										//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
+_crate_items 		= 0;										//cash mission but you could add items e.g. = (2 + (round (random 4)));
+_crate_backpacks 	= 0;										//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
 	};
 	case "moderate":
 	{
 _AICount = (4 + (round (random 2)));
-_cash = (500 + round (random (750)));		//this gives 500 to 1250 cash	
-_VehicleChance = 25;						//25% SpawnPersistentVehicle chance
-_crate_weapons 		= 0;					//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
-_crate_items 		= 0;					//cash mission but you could add items e.g. = (2 + (round (random 4)));
-_crate_backpacks 	= 0;					//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));		
+_cash = (500 + round (random (750)));							//this gives 500 to 1250 cash	
+_VehicleChance = 25;											//25% SpawnPersistentVehicle chance
+_PossibleVehicleClass = [		"Exile_Car_Offroad_DarkRed",
+								"Exile_Car_Offroad_BlueCustom",
+								"Exile_Car_Offroad_Guerilla01",
+								"Exile_Car_Offroad_Guerilla02",
+								"Exile_Car_Offroad_Guerilla03",
+								"Exile_Car_Offroad_Guerilla04",
+								"Exile_Car_Offroad_Guerilla05",
+								"Exile_Car_Offroad_Guerilla06",
+								"Exile_Car_Offroad_Guerilla07",
+								"Exile_Car_Offroad_Guerilla08",
+								"Exile_Car_Offroad_Guerilla09",
+								"Exile_Car_Offroad_Guerilla10",
+								"Exile_Car_Offroad_Guerilla11",
+								"Exile_Car_Offroad_Guerilla12"
+						];										//possible vehicle list
+_crate_weapons 		= 0;										//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
+_crate_items 		= 0;										//cash mission but you could add items e.g. = (2 + (round (random 4)));
+_crate_backpacks 	= 0;										//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));		
 	};
 	case "difficult":
 	{
 _AICount = (4 + (round (random 3)));
-_cash = (750 + round (random (1000)));		//this gives 750 to 1750 cash
-_VehicleChance = 33;						//33% SpawnPersistentVehicle chance
-_crate_weapons 		= 0;					//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
-_crate_items 		= 0;					//cash mission but you could add items e.g. = (2 + (round (random 4)));
-_crate_backpacks 	= 0;					//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
+_cash = (750 + round (random (1000)));							//this gives 750 to 1750 cash
+_VehicleChance = 33;											//33% SpawnPersistentVehicle chance
+_PossibleVehicleClass = [		"Exile_Car_Offroad_Guerilla01",
+								"Exile_Car_Offroad_Guerilla02",
+								"Exile_Car_Offroad_Guerilla03",
+								"Exile_Car_Offroad_Guerilla04",
+								"Exile_Car_Offroad_Guerilla05",
+								"Exile_Car_Offroad_Guerilla06",
+								"Exile_Car_Offroad_Guerilla07",
+								"Exile_Car_Offroad_Guerilla08",
+								"Exile_Car_Offroad_Guerilla09",
+								"Exile_Car_Offroad_Guerilla10",
+								"Exile_Car_Offroad_Guerilla11",
+								"Exile_Car_Offroad_Guerilla12",
+								"Exile_Car_Offroad_Armed_Guerilla01",
+								"Exile_Car_Offroad_Armed_Guerilla02",
+								"Exile_Car_Offroad_Armed_Guerilla03",
+								"Exile_Car_Offroad_Armed_Guerilla04",
+								"Exile_Car_Offroad_Armed_Guerilla05",
+								"Exile_Car_Offroad_Armed_Guerilla06"
+						];										//possible vehicle list
+_crate_weapons 		= 0;										//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
+_crate_items 		= 0;										//cash mission but you could add items e.g. = (2 + (round (random 4)));
+_crate_backpacks 	= 0;										//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
 	};
 	//case "hardcore":
 	default
 	{
 _AICount = (4 + (round (random 4)));
-_cash = (1000 + round (random (1500)));		//this gives 1000 to 2500 cash
-_VehicleChance = 50;						//50% SpawnPersistentVehicle chance
-_crate_weapons 		= 0;					//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
-_crate_items 		= 0;					//cash mission but you could add items e.g. = (2 + (round (random 4)));
-_crate_backpacks 	= 0;					//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
+_cash = (1000 + round (random (1500)));							//this gives 1000 to 2500 cash
+_VehicleChance = 50;											//50% SpawnPersistentVehicle chance
+_PossibleVehicleClass = [		"Exile_Car_Offroad_Guerilla01",
+								"Exile_Car_Offroad_Guerilla02",
+								"Exile_Car_Offroad_Guerilla03",
+								"Exile_Car_Offroad_Guerilla04",
+								"Exile_Car_Offroad_Guerilla05",
+								"Exile_Car_Offroad_Guerilla06",
+								"Exile_Car_Offroad_Armed_Guerilla01",
+								"Exile_Car_Offroad_Armed_Guerilla02",
+								"Exile_Car_Offroad_Armed_Guerilla03",
+								"Exile_Car_Offroad_Armed_Guerilla04",
+								"Exile_Car_Offroad_Armed_Guerilla05",
+								"Exile_Car_Offroad_Armed_Guerilla06",
+								"Exile_Car_Offroad_Armed_Guerilla07",
+								"Exile_Car_Offroad_Armed_Guerilla08",
+								"Exile_Car_Offroad_Armed_Guerilla09",
+								"Exile_Car_Offroad_Armed_Guerilla10",
+								"Exile_Car_Offroad_Armed_Guerilla11",
+								"Exile_Car_Offroad_Armed_Guerilla12"
+						];										//possible vehicle list
+_crate_weapons 		= 0;										//cash mission but you could add weapons e.g. = (2 + (round (random 3)));
+_crate_items 		= 0;										//cash mission but you could add items e.g. = (2 + (round (random 4)));
+_crate_backpacks 	= 0;										//cash mission but you could add backpacks e.g. = (1 + (round (random 1)));
 	};
 };
 						
@@ -109,39 +176,18 @@ _group =
 // Create Crate
 _crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
-// Check to see if a special vehicle class is defined in "_extraParams", and make sure it's valid, otherwise use the default (Offroad Armed)
-_vehClass =
-				if (_extraParams isEqualTo []) then
-				{
-					"Exile_Car_Offroad_Armed_Guerilla01"
-				}
-				else
-				{
-					if ((typeName _extraParams)=="STRING") then
-					{
-						_extraParams
-					}
-					else
-					{
-						if (((typeName _extraParams)=="ARRAY") && {(typeName (_extraParams select 0))=="STRING"}) then
-						{
-							_extraParams select 0
-						}
-						else
-						{
-							"Exile_Car_Offroad_Armed_Guerilla01"
-						};
-					};
-				};
+
+// select randomly from _PossibleVehicleClass in settings
+_VehicleClass  = selectRandom _PossibleVehicleClass;
 				
 // is %chance greater than random number
 if (_VehicleChance >= (random 100)) then {
 												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = [_vehClass,[(_pos,3+(random 5))],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_vehicle = [_VehicleClass,[(_pos,3+(random 5))],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
 												_msgWIN = ['#0080ff',format["Convicts have successfully taken care of the bandits and taken their cash and vehicle, entry code is %1 ...",_pinCode]];
 											} else
 											{
-												_vehicle = [_vehClass,[_pos,3+(random 5),random 360] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
+												_vehicle = [_VehicleClass,[_pos,3+(random 5),random 360] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
 												_msgWIN = ['#0080ff',"Convicts have successfully taken care of the bandit group and taken their cash!"];
 											};
 	
