@@ -6,6 +6,9 @@ DMS Bandit Missions Pack<br>
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU <br>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+<b>Updated 25 March 2017 > V3.1 - Beta Section Added</b><br>
+Added a beta section for testing missions along with code dumps. <br>
+
 <b>Updated 14 March 2017 > V3.1 - Release</b><br>
 Fixed - missing bracket on cashbandits mission <br>
 Fixed - logic off on ifrit mission for vehicle <br>

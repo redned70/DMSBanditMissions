@@ -1,0 +1,41 @@
+******************** Loading loot into vehicle rather than crate ********************
+I used some code from the DMS Occupation system by second_coming as it did everything i wanted with minimal adjustments required.
+
+You need to set up a list of items that could be put inside the vehicle:
+_ned_VehicleItems = [["U_NikosAgedBody",1,3], ["U_NikosBody",1,4], ["H_Cap_press",1,3],["H_StrawHat_dark",1,3], ["Exile_Item_EMRE",1,4], ["Exile_Item_PlasticBottleCoffee",1,4], ["ItemGPS",1,3], ["hgun_Rook40_F",1,4], ["hgun_ACPC2_F",2,2], ["9Rnd_45ACP_Mag",4,4], ["16Rnd_9x21_Mag",4,4]];
+
+Formatting is "item-name",<min number>,<add max random 0-this number>
+So ["9Rnd_45ACP_Mag",4,4] gives a min of 4 + (0 to 4) 9Rnd_45ACP_Mag's - so 4-8 mags
+
+Then you use that to load the _vehicle in this case although
+
+// no crate so load vehicle with basic goodies
+	clearMagazineCargoGlobal _vehicle;					>>>> make sure vehicle is empty of magazines
+	clearWeaponCargoGlobal _vehicle;					>>>> make sure vehicle is empty of weapons
+	clearItemCargoGlobal _vehicle;						>>>> make sure vehicle is empty of items						
+	{
+		_item = _x select 0;
+		_amount = _x select 1;
+		_randomAmount = _x select 2;
+		_amount = _amount + (random _randomAmount);
+		_itemType = _x call BIS_fnc_itemType;			>>>> this works out what type of item you are trying to add due to item types being added differently
+
+		if((_itemType select 0) == "Weapon") then {_vehicle addWeaponCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Magazine") then {_vehicle addMagazineCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Item") then {_vehicle addItemCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Equipment") then {_vehicle addItemCargoGlobal [_item, _amount];};
+		if((_itemType select 0) == "Backpack") then {_vehicle addBackpackCargoGlobal [_item, _amount];};
+	}forEach _ned_VehicleItems;							>>>> Loop loading different types of item into vehicle
+
+you could change _vehicle to _crate to add directly into crate
+	
+******************** /Loading loot into vehicle ********************
+
+
+******************** Loading cash into vehicle ********************	
+// load tabs in
+_vehicle setVariable ["ExileMoney", _cash,true]; 		>>>> this is how to add poptabs to the vehicle (thanks @BlackheartsGaming)
+
+you could change _vehicle to _crate to add directly into crate
+
+******************** /Loading cash into vehicle ********************

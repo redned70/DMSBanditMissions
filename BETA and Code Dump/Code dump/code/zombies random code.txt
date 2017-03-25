@@ -1,0 +1,194 @@
+if !(isnil "ryanzombiesdeletion") then {[_zombie] execVM "\ryanzombies\delzombies.sqf"};
+
+
+
+_ActivationRadius = _logic getVariable ["ActivationRadius",100];
+_CurrentAmount = 0;
+_AliveAmount = _logic getVariable ["AliveAmount",50];
+_TotalAmount = _logic getVariable ["TotalAmount",100];
+_TotalAmount = _TotalAmount - 1;
+_Start = _logic getVariable ["Start",5];
+_Frequency = _logic getVariable ["Frequency",60];
+_Delay = _logic getVariable ["Delay",0.5];
+_Density = _logic getVariable ["Density",0];
+_HordeSize = _logic getVariable ["HordeSize",14];
+_Randomize = _logic getVariable ["Randomize",1];
+
+
+
+
+if (isnil "ryanzombiesdensity") then {goto "start"}
+
+_zombie setpos [(getpos _zombie select 0) + random ryanzombiesdensity - random ryanzombiesdensity, (getpos _zombie select 1) + random ryanzombiesdensity - random ryanzombiesdensity]
+
+#start
+_zombie setdir random 360
+~3.5
+if (isnil "Ryanzombiesinvincible") then {_zombie allowdammage true}
+
+#loop
+if !(alive _zombie) then {goto "next"}
+~10
+goto "loop"
+
+
+
+
+
+
+
+
+_Amount = _logic getVariable ["Amount",20];
+_TotalAmount = _logic getVariable ["TotalAmount",40];
+_Start = _logic getVariable ["Start",5];
+_Frequency = _logic getVariable ["Frequency",60];
+_Delay = _logic getVariable ["Delay",0.5];
+_Density = _logic getVariable ["Density",0];
+_ActivationDemon = _logic getVariable ["ActivationDemon",1];
+if (_ActivationDemon == 1) then {_ActivationDemon = 0.9;};
+if (_ActivationDemon == 2) then {_ActivationDemon = 0.7;};
+if (_ActivationDemon == 3) then {_ActivationDemon = 0.5;};
+if (_ActivationDemon == 4) then {_ActivationDemon = 0.3;};
+
+_ActivationRadiusDemon = _logic getVariable ["ActivationRadiusDemon",100];
+_HordeSize = _logic getVariable ["HordeSize",14];
+
+ryanzombiesamountdemon = _Amount;
+ryanzombiestotalamountdemon = _TotalAmount - 1;
+ryanzombiesstartdemon = _Start;
+ryanzombiesfrequencydemon = _Frequency;
+ryanzombiesdelaydemon = _Delay;
+ryanzombiesdensitydemon = _Density;
+ryanzombiesactivationdemon = _ActivationDemon;
+ryanzombiesactivationradiusdemon = _ActivationRadiusDemon;
+ryanzombieshordesizedemon = _HordeSize;
+
+
+
+
+
+https://forums.bistudio.com/forums/topic/187173-zombies-and-demons-spawned-randomly-in-front-of-you-that-will-hunt-you-down/ 
+This is just a rehash of something I made that was again rehashed that I previously put together with much help from the guys on this forum. Seems the mod Zombies and Demons is quite popular so here is a script to spawn a group of Zombies randomly within 180 degrees of the direction the player is facing, at a set distance in front of the player (Possible to make this Multi player compatible by making the script search for nearest "enemy" man instead of player), once they get moving will hunt you down indefinitely. The zombies can be a bit retarded to start with as the leader spawns in the middle of the group and takes a bit of time to figure out where to head, but once they get going you best be ready! They will not stop until you are dead. Deletion of the zombie group at a certain distance from player for resource saving is commented out, but possible. Distance they spawn from you in this script is set at 250 meters from player on this line -
+_pos = [ player, 250, _from + _randomAngle ] call BIS_fnc_relPos;
+Change it as you need, you can change more parameters also, such as what you actually want to spawn (original script was just OPFOR groups here, called from config) -
+_attack = [getMarkerPos "randommrk", _side, ["RyanZombieC_man_1", "RyanZombieC_man_polo_1_F", "RyanZombieC_man_polo_2_F", "RyanZombieC_man_polo_4_F", "RyanZombieC_man_polo_5_F", "RyanZombieC_man_polo_6_F", "RyanZombieC_man_p_fugitive_F", "RyanZombieC_man_w_worker_F", "RyanZombieC_scientist_F", "RyanZombieC_man_hunter_1_F", "RyanZombieC_man_pilot_F", "RyanZombieC_journalist_F", "RyanZombieC_Orestes", "RyanZombieC_Nikos"], [], [], [0.3, 0.6]] call BIS_fnc_spawnGroup;
+Just change what is in there, more or less zombies your call. Call it with a trigger or how ever you like in game.
+NULL= execVM "scriptname.sqf";
+Below is the script...
+if (!isServer) exitwith {};
+
+private ["_side", "_attack", "_Zombies"];
+
+
+//Marker setup spawn randomly within 180 degrees of the direction the player is facing
+deleteMarker "randommrk";
+_angleSector = 180;
+_dir = getDir player;
+_randomAngle = random _angleSector;
+_from = _dir - ( _angleSector / 2 );
+
+//distance away from player to spawn and marker creation
+_pos = [ player, 250, _from + _randomAngle ] call BIS_fnc_relPos;
+_marker = createMarker ["randommrk", _pos];
+
+//Create side
+_side = createcenter east;
+
+//Spawn Zombies
+_attack = [getMarkerPos "randommrk", _side, ["RyanZombieC_man_1", "RyanZombieC_man_polo_1_F", "RyanZombieC_man_polo_2_F", "RyanZombieC_man_polo_4_F", "RyanZombieC_man_polo_5_F", "RyanZombieC_man_polo_6_F", "RyanZombieC_man_p_fugitive_F", "RyanZombieC_man_w_worker_F", "RyanZombieC_scientist_F", "RyanZombieC_man_hunter_1_F", "RyanZombieC_man_pilot_F", "RyanZombieC_journalist_F", "RyanZombieC_Orestes", "RyanZombieC_Nikos"], [], [], [0.3, 0.6]] call BIS_fnc_spawnGroup;
+
+//Hunt Player
+_Zombies= leader _attack;
+_Zombies move (getPosATL player);
+_attack setCombatMode "RED";
+_attack setBehaviour "Aware";
+_attack allowFleeing 0;
+
+//Delete group if they get to far away from player
+// while {true} do {
+// sleep 0.5;
+//
+// if ((player distance (leader _attack)) > 500) exitWith {
+// { deleteVehicle _x } forEach units _attack;
+// deleteGroup _attack;
+//
+// };
+// };
+
+//Keep moving!
+while {true} do {
+sleep 0.5;
+if ((unitReady _Zombies) && {(alive _Zombies)}) then {
+sleep 0.5;
+if (({ alive _x} count (units _attack)) != 0) then {
+_Zombies = leader _attack;
+_Zombies move (getPosATL player);
+_attack setCombatMode "RED";
+_attack setBehaviour "Aware";
+
+
+};
+};
+};
+
+
+
+
+
+
+
+
+
+
+infiSTAR_OnTargetEVIL =
+[
+	'Restrain','Freeze',
+	'Remove Gear','Kill','Light','Explode','Force Suicide','Delete Vehicle','Eject','Eject Crew','Unconscious',
+	'Force Disconnect','Kick (Silent)','Kick (Announce)',
+	'Ban (Silent)','Ban (Announce)','TempBan (Silent)','TempBan (Announce)'
+];
+if!(getArray(configfile >> 'CfgPatches' >> 'Ryanzombies' >> 'units') isEqualTo [])then
+{
+	infiSTAR_OnTargetEVIL pushBackUnique 'Spawn Zombie on Target Location!';
+};
+infiSTAR_OnTarget = infiSTAR_OnTargetNICE + infiSTAR_OnTargetEVIL;
+
+
+
+{if(_x call ADMINLEVELACCESS)then{_onTarget pushBack _x;};} forEach infiSTAR_OnTargetEVIL;
+
+
+
+		if(_click == 'Spawn Zombie on Target Location!')exitWith{[_unit,true] call fnc_zombieOnTarget;};
+
+
+
+fnc_zombieOnTarget = {
+	_target = _this select 0;
+	if(typeName _target != 'OBJECT')exitWith
+	{
+		_log = 'Target is not an Object!';
+		_log call FN_SHOW_LOG;
+	};
+	if!(isPlayer _target)exitWith
+	{
+		_log = 'Target is not a Player!';
+		_log call FN_SHOW_LOG;
+	};
+	[12,_target] call fn_ACR;
+	_log = format['Spawned Zombie on %1!',_target call fnc_get_exileObjName];
+	_log call FN_SHOW_LOG;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
