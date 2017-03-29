@@ -1,0 +1,37 @@
+Use in editor, you can then change search criteria if required
+
+
+diag_log "--- Start of CfgWeapons list. ---";
+diag_log "--- Start of CfgWeapons list. ---";
+_cfgSearch = "CfgWeapons"; 	
+_cfgClass = "true" configClasses (configFile >> _cfgSearch);
+{
+	_cfgName = configName(_x);
+	diag_log _cfgName;
+}forEach _cfgClass;
+diag_log "--- End of CfgWeapons list. ---";
+diag_log "--- End of CfgWeapons list. ---";
+diag_log "--- ------------------------- ---";
+diag_log "--- ------------------------- ---";
+diag_log "--- Start of CfgMagazines list. ---";
+diag_log "--- Start of CfgMagazines list. ---";
+_cfgSearch = "CfgMagazines"; 	
+_cfgClass = "true" configClasses (configFile >> _cfgSearch);
+{
+	_cfgName = configName(_x);
+	diag_log _cfgName;
+}forEach _cfgClass;
+diag_log "--- End of CfgMagazines list. ---";
+diag_log "--- End of CfgMagazines list. ---";
+diag_log "--- ------------------------- ---";
+diag_log "--- ------------------------- ---";
+diag_log "--- Start of CfgVehicles list. ---";
+diag_log "--- Start of CfgVehicles list. ---";
+_cfgSearch = "CfgVehicles"; 	
+_cfgClass = "true" configClasses (configFile >> _cfgSearch);
+{
+	_cfgName = configName(_x);
+	diag_log _cfgName;
+}forEach _cfgClass;
+diag_log "--- End of CfgVehicles list. ---";
+diag_log "--- End of CfgVehicles list. ---";

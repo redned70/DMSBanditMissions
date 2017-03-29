@@ -1,0 +1,7 @@
+[selectRandom DMS_BanditMissionTypesArray] call DMS_fnc_SpawnBanditMission;
+["saltflats"] call DMS_fnc_SpawnStaticMission;
+
+You have to execute it on the server. You can also choose to spawn a specific mission. For example: 
+["thieves"] call DMS_fnc_SpawnBanditMission;
+
+As with the static missions, they have to be defined in the config. 
