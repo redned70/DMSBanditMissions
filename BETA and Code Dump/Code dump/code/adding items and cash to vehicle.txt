@@ -39,3 +39,45 @@ _vehicle setVariable ["ExileMoney", _cash,true]; 		>>>> this is how to add popta
 you could change _vehicle to _crate to add directly into crate
 
 ******************** /Loading cash into vehicle ********************
+
+        // Add weapons with ammo to the vehicle
+        _possibleWeapons = 
+        [			
+            "arifle_MXM_Black_F",
+            "arifle_MXM_F",
+            "srifle_DMR_01_F",
+            "srifle_DMR_02_camo_F",
+            "srifle_DMR_02_F",
+            "srifle_DMR_02_sniper_F",
+            "srifle_DMR_03_F",
+            "srifle_DMR_03_khaki_F",
+            "srifle_DMR_03_multicam_F",
+            "srifle_DMR_03_tan_F",
+            "srifle_DMR_03_woodland_F",
+            "srifle_DMR_04_F",
+            "srifle_DMR_04_Tan_F",
+            "srifle_DMR_05_blk_F",
+            "srifle_DMR_05_hex_F",
+            "srifle_DMR_05_tan_f",
+            "srifle_DMR_06_camo_F",
+            "srifle_DMR_06_olive_F",
+            "srifle_EBR_F",
+            "srifle_GM6_camo_F",
+            "srifle_GM6_F",
+            "srifle_LRR_camo_F",
+            "srifle_LRR_F"
+        ];
+		_possibleWeapons = _possibleWeapons call ExileClient_util_array_shuffle;
+        _amountOfWeapons = 1 + (random 3);
+        
+        for "_i" from 1 to _amountOfWeapons do
+        {
+            _weaponToAdd = _possibleWeapons call BIS_fnc_selectRandom;
+            _vehicle addWeaponCargoGlobal [_weaponToAdd,1];
+        
+            _magazinesToAdd = getArray (configFile >> "CfgWeapons" >> _weaponToAdd >> "magazines");
+            _vehicle addMagazineCargoGlobal [(_magazinesToAdd select 0),round random 3];
+        };
+
+******************************************************************************
+
