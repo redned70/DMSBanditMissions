@@ -14,7 +14,12 @@ Anything that isnt in a working state will be commented <br>
 Please report any BETA mission issues or comments (especially if they are working) so i can add them to the live package<br>
 <br><br>
 
-
+<b>nedmulti_mission1</b><br>
+This is a test fo how far you can push the logic<br>
+It randomly selects messages and vehicle types<br>
+It loads items into vehicle with cash<br>
+It has a sliding scale of %chance of persistant vehicle<br>
+Its probably more complex than it should be as a test for me<br>
 
 Installing.<br>
 1. 	Copy contents of this folder>/missions/bandit/ into a3_dms.pbo /missions/bandit/ , you can remove old missions.<br>
