@@ -183,11 +183,11 @@ _VehicleClass  = selectRandom _PossibleVehicleClass;
 // is %chance greater than random number
 if (_VehicleChance >= (random 100)) then {
 												_pinCode = (1000 +(round (random 8999)));
-												_vehicle = [_VehicleClass,[(_pos,3+(random 5))],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
+												_vehicle = [_VehicleClass,[(_pos select 0) -10, (_pos select 1) +10],_pinCode] call DMS_fnc_SpawnPersistentVehicle;
 												_msgWIN = ['#0080ff',format["Convicts have successfully taken care of the bandits and taken their cash and vehicle, entry code is %1 ...",_pinCode]];
 											} else
 											{
-												_vehicle = [_VehicleClass,[_pos,3+(random 5),random 360] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
+												_vehicle = [_VehicleClass,[(_pos select 0) -10, (_pos select 1) +10]] call DMS_fnc_SpawnNonPersistentVehicle;
 												_msgWIN = ['#0080ff',"Convicts have successfully taken care of the bandit group and taken their cash!"];
 											};
 	
