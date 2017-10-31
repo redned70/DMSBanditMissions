@@ -96,6 +96,13 @@ _crate_backpacks 	= (4 + (round (random 1)));
 _crate_weapon_list	= ["arifle_SDAR_F","arifle_MX_GL_Black_F","MMG_01_hex_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F","MMG_02_sand_F","hgun_PDW2000_F","SMG_01_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F"];
 _crate_item_list	= ["H_HelmetLeaderO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetLeaderO_oucamo","H_HelmetLeaderO_oucamo","U_B_survival_uniform","U_B_Wetsuit","U_O_Wetsuit","U_I_Wetsuit","H_HelmetB_camo","H_HelmetSpecB","H_HelmetSpecO_blk","Exile_Item_EMRE","Exile_Item_InstantCoffee","Exile_Item_PowerDrink","Exile_Item_InstaDoc"];
 
+// Create Buildings - use seperate file as found in the mercbase mission
+_baseObjs =
+[
+	"nedresearch_objects",
+	_pos
+] call DMS_fnc_ImportFromM3E;
+
 _group =
 [
 	[[(_pos select 0)+2,(_pos select 1)+4,0],[(_pos select 0)-10,(_pos select 1)+0,0]],					// Position AI in tent + 2nd squad
@@ -130,13 +137,6 @@ _staticGuns =
 	"static",
 	"bandit"
 ] call DMS_fnc_SpawnAIStaticMG;
-
-// Create Buildings - use seperate file as found in the mercbase mission
-_baseObjs =
-[
-	"nedresearch_objects",
-	_pos
-] call DMS_fnc_ImportFromM3E;
 
 // is %chance greater than random number
 if (_VehicleChance >= (random 100)) then {
