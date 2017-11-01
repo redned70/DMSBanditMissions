@@ -1,10 +1,10 @@
 /*
-	Food Transport Mission with new difficulty selection system
-	Created by Defent and eraser1
+	Drink Transport Mission with new difficulty selection system
+	Originally Beer Transport Created by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_OK", "_pos", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_crate1", "_wreck", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_wreck", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -36,7 +36,7 @@ _OK = (_this call DMS_fnc_MissionParams) params
 
 if !(_OK) exitWith
 {
-	diag_log format ["DMS ERROR :: Called MISSION foodtransport.sqf with invalid parameters: %1",_this];
+	diag_log format ["DMS ERROR :: Called MISSION neddrinkstransport_mission.sqf with invalid parameters: %1",_this];
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
@@ -90,9 +90,9 @@ _crate_backpacks 	= 0;
 	};
 };
 
-//used for all
-_crate_item_list	= ["Exile_Item_GloriousKnakWorst_Cooked","Exile_Item_PlasticBottleFreshWater","Exile_Item_PlasticBottleFreshWater","Exile_Item_BBQSandwich_Cooked","Exile_Item_Catfood_Cooked","Exile_Item_ChristmasTinner_Cooked"];
-
+// used for all
+_crate_item_list	= ["Exile_Item_PlasticBottleCoffee", "Exile_Item_PowerDrink", "Exile_Item_PlasticBottleFreshWater", "Exile_Item_Beer", "Exile_Item_EnergyDrink", "Exile_Item_ChocolateMilk", "Exile_Item_MountainDupe"];
+	
 _group =
 [
 	_pos,					// Position of AI
@@ -102,7 +102,6 @@ _group =
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
 
-
 // Create Crates
 _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
@@ -111,11 +110,11 @@ _wreck = createVehicle ["Land_Wreck_Van_F",[(_pos select 0) - 10, (_pos select 1
 // Set crate loot values
 _crate_loot_values1 =
 [
-	_crate_weapons,							// Weapons
-	[_crate_items,_crate_item_list],		// Items
-	_crate_backpacks 						// Backpacks
-];
+	_crate_weapons,								// Weapons
+	[_crate_items,_crate_item_list],			// Items + selection list
+	_crate_backpacks 							// Backpacks
 
+];
 
 // Define mission-spawned AI Units
 _missionAIUnits =
@@ -132,16 +131,16 @@ _missionObjs =
 ];
 
 // define start messages with difficulty choice
-_msgStart = ['#FFFF00',format["A food supply truck has been seized by %1 bandits. Stop them!",_difficulty]];
+_msgStart = ['#FFFF00',format["A Bandits are moving a truck carrying their drink supplies, stop the %1 bandits and steal their supplies!",_difficulty]];
 
 // Define Mission Win message
-_msgWIN = ['#0080ff',"Convicts have successfully claimed the food supplies!"];
+_msgWIN = ['#0080ff',"Convicts have successfully claimed all of the supplies."];
 
 // Define Mission Lose message
-_msgLOSE = ['#FF0000',"The bandits have taken the food supplies and escaped!"];
+_msgLOSE = ['#FF0000',"The robbers have taken off with all theit supplies, you missed out there!"];
 
 // Define mission name (for map marker and logging)
-_missionName = "Food Supplies";
+_missionName = "Drink Supply";
 
 // Create Markers
 _markers =

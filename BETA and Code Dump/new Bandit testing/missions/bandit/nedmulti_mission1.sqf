@@ -4,9 +4,10 @@
 	Items and cash are loaded into vehicle so no crate
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
+	<<<<<<<<<<<<< This mission doesnt work due to messages syntax >>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate", "_vehicle", "_pinCode", "_class", "_veh", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass", "_VehicleChance", "_Enemies", "_PossibleEnemies", "_Vehicletype", "_PossibleVehicletype", "_Dosomething", "_PossibleDosomething", "_Possiblevehiclecar", "_Possiblevehiclelandrover", "_Possiblevehiclevan", "_Possiblevehicletruck", "_Possiblevehicleoffroad", "_cash", "_ned_VehicleItems"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate", "_vehicle", "_pinCode", "_class", "_veh", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass", "_VehicleChance", "_Enemies", "_PossibleEnemies", "_Vehicletype", "_PossibleVehicletype", "_Dosomething", "_PossibleDosomething", "_Possiblevehiclecar", "_Possiblevehiclelandrover", "_Possiblevehiclevan", "_Possiblevehicletruck", "_Possiblevehicleoffroad", "_cash", "_ned_VehicleItems", "_vehClass", "_ArmedVehicles", "_unArmedVehicles", "_missionName_pc", "_msgStart_pc", "_msgWIN_pc", "_msgWINpin_pc", "_msgLOSE_pc"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -40,6 +41,36 @@ if !(_OK) exitWith
 {
 	diag_log format ["DMS ERROR :: Called MISSION nedmulti_mission1.sqf with invalid parameters: %1",_this];
 };
+
+//doing bespoke AI vehicles
+_ArmedVehicles =	[							// List of armed vehicles that can spawn
+						"Exile_Car_Offroad_Armed_Guerilla01",
+						"Exile_Car_Offroad_Armed_Guerilla02",
+						"Exile_Car_Offroad_Armed_Guerilla03",
+						"Exile_Car_Offroad_Armed_Guerilla04",
+						"Exile_Car_Offroad_Armed_Guerilla05",
+						"Exile_Car_Offroad_Armed_Guerilla06",
+						"Exile_Car_Offroad_Armed_Guerilla07",
+						"Exile_Car_Offroad_Armed_Guerilla08",
+						"Exile_Car_Offroad_Armed_Guerilla09",
+						"Exile_Car_Offroad_Armed_Guerilla10",
+						"Exile_Car_Offroad_Armed_Guerilla11",
+						"Exile_Car_Offroad_Armed_Guerilla12"
+					];
+_unArmedVehicles =	[							// List of unarmed vehicles that can spawn
+						"Exile_Car_Offroad_Guerilla01",
+						"Exile_Car_Offroad_Guerilla02",
+						"Exile_Car_Offroad_Guerilla03",
+						"Exile_Car_Offroad_Guerilla04",
+						"Exile_Car_Offroad_Guerilla05",
+						"Exile_Car_Offroad_Guerilla06",
+						"Exile_Car_Offroad_Guerilla07",
+						"Exile_Car_Offroad_Guerilla08",
+						"Exile_Car_Offroad_Guerilla09",
+						"Exile_Car_Offroad_Guerilla10",
+						"Exile_Car_Offroad_Guerilla11",
+						"Exile_Car_Offroad_Guerilla12"
+					];
 
 // Set up some randomising of mission and messages, not used for anything else
 // This is for mission message on who is attacking
@@ -185,13 +216,15 @@ switch (_difficulty) do
 		_VehicleChance = 25;												//25% SpawnPersistentVehicle chance
 		_cash = (250 + round (random (500)));								//this gives 250 to 750 cash
 		_ned_VehicleItems = [["U_NikosAgedBody",1,0], ["U_NikosBody",1,1], ["H_Cap_press",1,0],["H_StrawHat_dark",1,0], ["Exile_Item_EMRE",1,1], ["Exile_Item_PlasticBottleCoffee",1,1], ["ItemGPS",1,0], ["hgun_Rook40_F",1,1], ["hgun_ACPC2_F",0,1], ["9Rnd_45ACP_Mag",1,1], ["16Rnd_9x21_Mag",1,1]];
+		_vehClass = selectRandom _unArmedVehicles;
 	};
 	case "moderate":
 	{
 		_AICount = (4 + (round (random 2)));
 		_VehicleChance = 33;												//33% SpawnPersistentVehicle chance
 		_cash = (500 + round (random (750)));								//this gives 500 to 1250 cash	
-		_ned_VehicleItems = [["U_NikosAgedBody",1,1], ["U_NikosBody",1,2], ["H_Cap_press",1,1],["H_StrawHat_dark",1,1], ["Exile_Item_EMRE",1,2], ["Exile_Item_PlasticBottleCoffee",1,2], ["ItemGPS",1,1], ["hgun_Rook40_F",1,2], ["hgun_ACPC2_F",1,1], ["9Rnd_45ACP_Mag",2,2], ["16Rnd_9x21_Mag",2,2]];			
+		_ned_VehicleItems = [["U_NikosAgedBody",1,1], ["U_NikosBody",1,2], ["H_Cap_press",1,1],["H_StrawHat_dark",1,1], ["Exile_Item_EMRE",1,2], ["Exile_Item_PlasticBottleCoffee",1,2], ["ItemGPS",1,1], ["hgun_Rook40_F",1,2], ["hgun_ACPC2_F",1,1], ["9Rnd_45ACP_Mag",2,2], ["16Rnd_9x21_Mag",2,2]];
+		_vehClass = selectRandom _unArmedVehicles;		
 	};
 	case "difficult":
 	{
@@ -199,6 +232,7 @@ switch (_difficulty) do
 		_VehicleChance = 50;												//50% SpawnPersistentVehicle chance
 		_cash = (750 + round (random (1000)));								//this gives 750 to 1750 cash
 		_ned_VehicleItems = [["U_NikosAgedBody",1,2], ["U_NikosBody",1,3], ["H_Cap_press",1,2],["H_StrawHat_dark",1,2], ["Exile_Item_EMRE",1,3], ["Exile_Item_PlasticBottleCoffee",1,3], ["ItemGPS",1,2], ["hgun_Rook40_F",1,3], ["hgun_ACPC2_F",1,2], ["9Rnd_45ACP_Mag",3,3], ["16Rnd_9x21_Mag",3,3]];
+		_vehClass = selectRandom _ArmedVehicles;
 	};
 	//case "hardcore":
 	default
@@ -207,8 +241,17 @@ switch (_difficulty) do
 		_VehicleChance = 75;												//75% SpawnPersistentVehicle chance
 		_cash = (1000 + round (random (1500)));								//this gives 1000 to 2500 cash
 		_ned_VehicleItems = [["U_NikosAgedBody",1,3], ["U_NikosBody",1,4], ["H_Cap_press",1,3],["H_StrawHat_dark",1,3], ["Exile_Item_EMRE",1,4], ["Exile_Item_PlasticBottleCoffee",1,4], ["ItemGPS",1,3], ["hgun_Rook40_F",1,4], ["hgun_ACPC2_F",2,2], ["9Rnd_45ACP_Mag",4,4], ["16Rnd_9x21_Mag",4,4]];
+		_vehClass = selectRandom _ArmedVehicles;
 	};
 };
+
+// Precompile _msgLOSE due to errors doing it on the fly
+_missionName_pc		=	[[_Enemies], [_Vehicletype]];
+//_msgStart_pc		=
+//_msgWIN_pc			=
+//_msgWINpin_pc		=
+//_msgLOSE_pc			=
+
 
 _group =
 			[
@@ -228,7 +271,8 @@ _veh =
 			_group,
 			"assault",
 			"easy",
-			_side
+			_side,
+			_vehClass
 		] call DMS_fnc_SpawnAIVehicle;
 
 // add static guns
@@ -300,7 +344,7 @@ _msgStart = ['#FFFF00',format["%1 with a %2 have broken down. Find the %3 %1 and
 _msgLOSE = ['#FF0000',format ["The %1 drove off and escaped with the %2.",_Enemies,_Vehicletype]];
 
 // Define mission name (for map marker and logging)
-_missionName = ['#FF0000',format ["%1 %2",_Enemies,_Vehicletype]];
+_missionName = [_missionName_pc];
 
 // Create Markers
 _markers =

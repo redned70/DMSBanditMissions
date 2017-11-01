@@ -5,7 +5,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_ned_VehicleItems", "_PossibleDifficulty", "_VehicleChance", "_cash"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_ned_VehicleItems", "_PossibleDifficulty", "_VehicleChance", "_cash", "_vehClass", "_ArmedVehicles", "_unArmedVehicles"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -40,6 +40,36 @@ if !(_OK) exitWith
 	diag_log format ["DMS ERROR :: Called MISSION nedsnipercamp_mission.sqf with invalid parameters: %1",_this];
 };
 
+//doing bespoke AI vehicles
+_ArmedVehicles =	[							// List of armed vehicles that can spawn
+						"Exile_Car_Offroad_Armed_Guerilla01",
+						"Exile_Car_Offroad_Armed_Guerilla02",
+						"Exile_Car_Offroad_Armed_Guerilla03",
+						"Exile_Car_Offroad_Armed_Guerilla04",
+						"Exile_Car_Offroad_Armed_Guerilla05",
+						"Exile_Car_Offroad_Armed_Guerilla06",
+						"Exile_Car_Offroad_Armed_Guerilla07",
+						"Exile_Car_Offroad_Armed_Guerilla08",
+						"Exile_Car_Offroad_Armed_Guerilla09",
+						"Exile_Car_Offroad_Armed_Guerilla10",
+						"Exile_Car_Offroad_Armed_Guerilla11",
+						"Exile_Car_Offroad_Armed_Guerilla12"
+					];
+_unArmedVehicles =	[							// List of unarmed vehicles that can spawn
+						"Exile_Car_Offroad_Guerilla01",
+						"Exile_Car_Offroad_Guerilla02",
+						"Exile_Car_Offroad_Guerilla03",
+						"Exile_Car_Offroad_Guerilla04",
+						"Exile_Car_Offroad_Guerilla05",
+						"Exile_Car_Offroad_Guerilla06",
+						"Exile_Car_Offroad_Guerilla07",
+						"Exile_Car_Offroad_Guerilla08",
+						"Exile_Car_Offroad_Guerilla09",
+						"Exile_Car_Offroad_Guerilla10",
+						"Exile_Car_Offroad_Guerilla11",
+						"Exile_Car_Offroad_Guerilla12"
+					];
+
 //create possible difficulty add more of one difficulty to weight it towards that
 _PossibleDifficulty		= 	[	
 								"easy",
@@ -62,6 +92,7 @@ _AICount = (4 + (round (random 4)));
 _VehicleChance = 10;												//10% SpawnPersistentVehicle chance
 _ned_VehicleItems = [["Exile_Item_ExtensionCord",1,0], ["Exile_Item_DuctTape",1,1], ["Exile_Item_LightBulb",1,0],["Exile_Item_MetalBoard",1,1], ["Exile_Item_MetalPole",1,1], ["Exile_Melee_SledgeHammmer",0,1], ["Exile_Item_Handsaw",1,0], ["Exile_Item_Pliers",1,1], ["Exile_Item_Grinder",0,1], ["Exile_Item_WoodDoorKit",1,1], ["Exile_Item_WoodDoorwayKit",0,1], ["Exile_Item_WoodFloorKit",1,1], ["Exile_Item_WoodGateKit",1,1], ["Exile_Item_WoodSupportKit",1,1], ["Exile_Item_WoodWallKit",1,1], ["Exile_Item_WoodWindowKit",1,1], ["Exile_Item_MetalHedgehogKit",0,1]];
 _cash = (250 + round (random (500)));								//cash prize
+_vehClass = selectRandom _unArmedVehicles;
 	};
 	case "moderate":
 	{
@@ -69,6 +100,7 @@ _AICount = (6 + (round (random 4)));
 _VehicleChance = 20;												//20% SpawnPersistentVehicle chance
 _ned_VehicleItems = [["Exile_Item_ExtensionCord",1,0], ["Exile_Item_DuctTape",1,1], ["Exile_Item_LightBulb",1,0],["Exile_Item_MetalBoard",1,1], ["Exile_Item_MetalPole",1,1], ["Exile_Melee_SledgeHammmer",1,1], ["Exile_Item_Handsaw",1,0], ["Exile_Item_Pliers",1,1], ["Exile_Item_Grinder",0,1], ["Exile_Item_WoodDoorKit",1,1], ["Exile_Item_WoodDoorwayKit",1,1], ["Exile_Item_WoodFloorKit",1,2], ["Exile_Item_WoodGateKit",1,1], ["Exile_Item_WoodStairsKit",1,1], ["Exile_Item_WoodSupportKit",1,1], ["Exile_Item_WoodWallKit",1,2], ["Exile_Item_WoodWindowKit",1,1], ["Exile_Item_MetalHedgehogKit",1,1]];
 _cash = (500 + round (random (750)));								//cash prize
+_vehClass = selectRandom _unArmedVehicles;
 	};
 	case "difficult":
 	{
@@ -76,6 +108,7 @@ _AICount = (8 + (round (random 4)));
 _VehicleChance = 30;												//30% SpawnPersistentVehicle chance
 _ned_VehicleItems = [["Exile_Item_ExtensionCord",1,0], ["Exile_Item_DuctTape",1,2], ["Exile_Item_LightBulb",1,2],["Exile_Item_MetalBoard",1,3], ["Exile_Item_MetalPole",1,1], ["Exile_Melee_SledgeHammmer",1,1], ["Exile_Item_Handsaw",1,0], ["Exile_Item_Pliers",1,1], ["Exile_Item_Grinder",1,1], ["Exile_Item_WoodDoorKit",1,2], ["Exile_Item_WoodDoorwayKit",0,1], ["Exile_Item_ConcreteFloorKit",1,1], ["Exile_Item_WoodGateKit",1,1], ["Exile_Item_WoodStairsKit",1,2], ["Exile_Item_WoodSupportKit",1,2], ["Exile_Item_WoodWallKit",1,2], ["Exile_Item_WoodWindowKit",1,2], ["Exile_Item_MetalHedgehogKit",1,1], ["Exile_Item_SafeKit",0,1]];
 _cash = (750 + round (random (1000)));								//cash prize
+_vehClass = selectRandom _ArmedVehicles;
 	};
 	//case "hardcore":
 	default
@@ -83,7 +116,8 @@ _cash = (750 + round (random (1000)));								//cash prize
 _AICount = (8 + (round (random 8)));
 _VehicleChance = 90;												//90% SpawnPersistentVehicle chance
 _ned_VehicleItems = [["Exile_Item_ExtensionCord",1,1], ["Exile_Item_DuctTape",1,3], ["Exile_Item_LightBulb",1,2],["Exile_Item_MetalBoard",1,3], ["Exile_Item_MetalPole",1,3], ["Exile_Melee_SledgeHammmer",1,1], ["Exile_Item_Handsaw",1,0], ["Exile_Item_Pliers",1,1], ["Exile_Item_Grinder",1,1], ["Exile_Item_WoodDoorKit",1,2], ["Exile_Item_ConcreteDoorwayKit",1,1], ["Exile_Item_ConcreteFloorKit",1,1], ["Exile_Item_ConcreteGateKit",1,1], ["Exile_Item_ConcreteStairsKit",1,1], ["Exile_Item_ConcreteSupportKit",1,1], ["Exile_Item_ConcreteWallKit",1,1], ["Exile_Item_WoodWindowKit",1,1], ["Exile_Item_MetalHedgehogKit",1,2], ["Exile_Item_SafeKit",1,0]];
-_cash = (1000 + round (random (1500)));								//cash prize					
+_cash = (1000 + round (random (1500)));								//cash prize	
+_vehClass = selectRandom _ArmedVehicles;				
 	};
 };
 
@@ -106,7 +140,8 @@ _veh =
 	_group,
 	"assault",
 	_difficulty,
-	_side
+	_side,
+	_vehClass
 ] call DMS_fnc_SpawnAIVehicle;
 
 // add static guns - same for all levels
