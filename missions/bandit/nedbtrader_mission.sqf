@@ -37,7 +37,7 @@ _OK = (_this call DMS_fnc_MissionParams) params
 
 if !(_OK) exitWith
 {
-	diag_log format ["DMS ERROR :: Called MISSION nedsnipercamp_mission.sqf with invalid parameters: %1",_this];
+	diag_log format ["DMS ERROR :: Called MISSION nedbtrader_mission.sqf with invalid parameters: %1",_this];
 };
 
 //doing bespoke AI vehicles
