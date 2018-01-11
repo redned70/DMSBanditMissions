@@ -63,8 +63,8 @@ _AICount = (3 + (round (random 2)));
 _crate_weapons 		= (2 + (round (random 3)));
 _crate_items 		= (2 + (round (random 4)));
 _crate_backpacks 	= (1 + (round (random 1)));
-_cash				= (100 + (round (random 100)));		> this is passed into rewards string
-_score				= (100 + (round (random 100)));		> this is passed into rewards string
+_cash				= (100 + (round (random 100)));		//> this is passed into rewards string
+_score				= (100 + (round (random 100)));		//> this is passed into rewards string
 	};
 	case "moderate":
 	{
@@ -72,8 +72,8 @@ _AICount = (4 + (round (random 2)));
 _crate_weapons 		= (4 + (round (random 5)));
 _crate_items 		= (4 + (round (random 6)));
 _crate_backpacks 	= (2 + (round (random 1)));		
-_cash				= (200 + (round (random 200)));		> this is passed into rewards string
-_score				= (200 + (round (random 200)));		> this is passed into rewards string
+_cash				= (200 + (round (random 200)));		//> this is passed into rewards string
+_score				= (200 + (round (random 200)));		//> this is passed into rewards string
 	};
 	case "difficult":
 	{
@@ -81,8 +81,8 @@ _AICount = (4 + (round (random 3)));
 _crate_weapons 		= (6 + (round (random 7)));
 _crate_items 		= (6 + (round (random 8)));
 _crate_backpacks 	= (3 + (round (random 1)));
-_cash				= (300 + (round (random 300)));		> this is passed into rewards string
-_score				= (300 + (round (random 300)));		> this is passed into rewards string
+_cash				= (300 + (round (random 300)));		//> this is passed into rewards string
+_score				= (300 + (round (random 300)));		//> this is passed into rewards string
 	};
 	//case "hardcore":
 	default
@@ -91,8 +91,8 @@ _AICount = (4 + (round (random 4)));
 _crate_weapons 		= (8 + (round (random 9)));
 _crate_items 		= (8 + (round (random 10)));
 _crate_backpacks 	= (4 + (round (random 1)));
-_cash				= (400 + (round (random 400)));		> this is passed into rewards string
-_score				= (400 + (round (random 400)));		> this is passed into rewards string
+_cash				= (400 + (round (random 400)));		//> this is passed into rewards string
+_score				= (400 + (round (random 400)));		//> this is passed into rewards string
 	};
 };
 						
@@ -132,10 +132,10 @@ _vehClass =
 			};
 		};
 	};
-// Dont spawn vehicle just get class > this is passed into rewards string
+// Don't spawn vehicle just get class > this is passed into rewards string
 _PrizeVehicles = [_vehClass];
 
-// setup crate iteself with items from choice > this is passed into rewards string
+// set-up crate itself with items from choice > this is passed into rewards string
 _crate_loot_values =
 [
 	_crate_weapons,			// Weapons
@@ -205,7 +205,7 @@ _added =
 	_side,
 	_difficulty,
 	[
-	[DMS_fn_PlayerRewardsMod,[_cash,_score,_crate_loot_values,_PrizeVehicles];],
+	[DMS_fn_PlayerRewardsMod,[_cash, _score, _crate_loot_values, _PrizeVehicles];],
 	[],
 	[],
 	[]
