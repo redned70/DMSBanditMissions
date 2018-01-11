@@ -46,8 +46,8 @@ while	{(_ns < 100)} do {
 			};
 
 // If either cash or score is empty set to 0 to avoid errors before building reward string
-if  (_cash = "") then {_cash=0;};
-if  (_score = "") then {_score=0;};
+if  ( _cash == "" ) then { _cash = 0; } else { _cash = _cash; };
+if  ( _score == "" ) then { _score = 0; } else { _score = _score; };
 
 // need to use part of DMS_fnc_FillCrate to actually parse through prize objects so it functions the same as normal
 
