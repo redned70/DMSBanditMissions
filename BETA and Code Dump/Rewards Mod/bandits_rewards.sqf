@@ -142,7 +142,7 @@ _crate_loot_values =
 
 // need to add string into crate fill or it crashes
 _nothing_list = ["Exile_Item_ToiletPaper"];
-_nothing  = [0,[1,_nothing_list],0];
+_nothing  = [0, [1,_nothing_list], 0];
 
 // Create Crate
 _crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
@@ -158,7 +158,7 @@ _missionObjs =
 [
 	[],						// No spawned buildings
 	[],						// No vehicles spawned
-	[_crate,_nothing]		// Nothing in crate
+	[[_crate,_nothing]]		// Nothing in crate
 ];
 
 // Define Mission Start message
