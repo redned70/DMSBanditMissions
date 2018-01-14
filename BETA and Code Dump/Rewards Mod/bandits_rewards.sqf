@@ -4,7 +4,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty", "_score", "_PrizeVehicles", "_nothing", "_nothing_list"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty", "_score", "_prizevehicles", "_nothing", "_nothing_list"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -130,7 +130,7 @@ _vehClass =
 		};
 	};
 // Don't spawn vehicle just get class > this is passed into rewards string
-_PrizeVehicles = [_vehClass];
+_prizevehicles = [_vehClass];
 
 // Create Crate
 _crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
@@ -209,12 +209,15 @@ _added =
 	_side,
 	_difficulty,
 	[
-	[[_cash, _score, _crate_loot_values, _PrizeVehicles], call DMS_fn_PlayerRewardsMod],
+	[[_cash, _score, _crate_loot_values, _prizevehicles], call DMS_fn_PlayerRewardsMod],
 	[],
 	[],
 	[]
 	]
 ] call DMS_fnc_AddMissionToMonitor;
+
+// logging a bit
+diag_log format ["DMS check :: mission %1 sending the following to DMS_fn_PlayerRewardsMod Cash:%2 Rep:%3 Crate:%4 Vehicle:%5", _missionName, _cash, _score, _crate_loot_values, _prizevehicles];
 
 // Check to see if it was added correctly, otherwise delete the stuff
 if !(_added) exitWith

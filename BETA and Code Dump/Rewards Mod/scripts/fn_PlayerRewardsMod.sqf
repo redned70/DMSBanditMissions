@@ -6,14 +6,14 @@
 	Add "class PlayerRewardsMod 			{};" to "class compiles" list in config.cpp to make it work
 	Finds nearest player on command then applies rewards string
 
-["addRewardsRequest", [getplayeruid player, [["ExileMoney",_cash],["ExileScore",_score],_crate_loot_values,[_prizevehicle]]] call ExileClient_system_network_send;	
+["addRewardsRequest", [getplayeruid player, [["ExileMoney",_cash],["ExileScore",_score],_crate_loot_values,[_prizevehicles]]] call ExileClient_system_network_send;	
 	
 	Usage:
 	[
 		_cash,								// whole numbers
 		_score,								// whole numbers
 		_crate_loot_values,					// (x,y,z) whole numbers
-		_PrizeVehicles						// ["vehicle1","vehicle2"]
+		_prizevehicles						// ["vehicle1","vehicle2"]
 	] call DMS_fn_PlayerRewardsMod;
 
 
@@ -26,7 +26,7 @@ if !(params
 	"_cash",
 	"_score",
 	"_crate_loot_values",
-	"_prizevehicle"
+	"_prizevehicles"
 ])
 exitWith
 {
@@ -34,6 +34,13 @@ exitWith
 };
 
 // _playerUID = getPlayerUID _playerObj;
+
+
+// logging a bit
+diag_log format ["******************************************************************************"];
+diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod received from mission Cash:%1 Rep:%2 Crate:%3 Vehicle:%4", _cash, _score, _crate_loot_values, _prizevehicles];
+diag_log format ["******************************************************************************"];
+
 
 // find nearest player and get their UID
 private _ns = 0;
@@ -48,6 +55,12 @@ while	{(_ns < 100)} do {
 // If either cash or score is empty set to 0 to avoid errors before building reward string
 if  ( _cash == "" ) then { _cash = 0; } else { _cash = _cash; };
 if  ( _score == "" ) then { _score = 0; } else { _score = _score; };
+
+// logging a bit
+diag_log format ["******************************************************************************"];
+diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod generating Cash:%1 Rep:%2 playerUID:%3", _cash, _score, _playerUID];
+diag_log format ["******************************************************************************"];
+
 
 // need to use part of DMS_fnc_FillCrate to actually parse through prize objects so it functions the same as normal
 
@@ -240,6 +253,13 @@ if ((!isNull _playerObj) && {(_playerUID != "") && {_playerObj isKindOf "Exile_U
 							]
 	] call ExileClient_system_network_send;	
 };
+
+
+// logging a bit
+diag_log format ["******************************************************************************"];
+diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod generating addRewardsRequest playerUID:%1 ExileMoney:%2 ExileScore:%3 CrateItems:%4 Vehicle:%5", _playerUID, _cash, _score, _crate, _prizevehicle];
+diag_log format ["******************************************************************************"];
+
 
 	if (DMS_DEBUG) then
 	{
