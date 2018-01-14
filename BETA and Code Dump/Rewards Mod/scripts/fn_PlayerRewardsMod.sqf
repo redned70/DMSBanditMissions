@@ -237,7 +237,8 @@ if ((!isNull _playerObj) && {(_playerUID != "") && {_playerObj isKindOf "Exile_U
 									[_crate],
 									[_prizevehicle]
 								]
-							] call ExileClient_system_network_send;	
+							]
+	] call ExileClient_system_network_send;	
 };
 
 	if (DMS_DEBUG) then

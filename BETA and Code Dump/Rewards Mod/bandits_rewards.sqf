@@ -4,7 +4,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty", "_score", "_PrizeVehicles" ];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -63,7 +63,8 @@ _AICount = (3 + (round (random 2)));
 _crate_weapons 		= (2 + (round (random 3)));
 _crate_items 		= (2 + (round (random 4)));
 _crate_backpacks 	= (1 + (round (random 1)));
-_cash				= (100 + (round (random 100)));
+_cash				= (100 + (round (random 100)));		//> this is passed into rewards string
+_score				= (100 + (round (random 100)));		//> this is passed into rewards string
 	};
 	case "moderate":
 	{
@@ -71,7 +72,8 @@ _AICount = (4 + (round (random 2)));
 _crate_weapons 		= (4 + (round (random 5)));
 _crate_items 		= (4 + (round (random 6)));
 _crate_backpacks 	= (2 + (round (random 1)));		
-_cash				= (200 + (round (random 200)));	
+_cash				= (200 + (round (random 200)));		//> this is passed into rewards string
+_score				= (200 + (round (random 200)));		//> this is passed into rewards string
 	};
 	case "difficult":
 	{
@@ -79,7 +81,8 @@ _AICount = (4 + (round (random 3)));
 _crate_weapons 		= (6 + (round (random 7)));
 _crate_items 		= (6 + (round (random 8)));
 _crate_backpacks 	= (3 + (round (random 1)));
-_cash				= (300 + (round (random 300)));
+_cash				= (300 + (round (random 300)));		//> this is passed into rewards string
+_score				= (300 + (round (random 300)));		//> this is passed into rewards string
 	};
 	//case "hardcore":
 	default
@@ -88,7 +91,8 @@ _AICount = (4 + (round (random 4)));
 _crate_weapons 		= (8 + (round (random 9)));
 _crate_items 		= (8 + (round (random 10)));
 _crate_backpacks 	= (4 + (round (random 1)));
-_cash				= (400 + (round (random 400)));
+_cash				= (400 + (round (random 400)));		//> this is passed into rewards string
+_score				= (400 + (round (random 400)));		//> this is passed into rewards string
 	};
 };
 						
@@ -128,10 +132,10 @@ _vehClass =
 			};
 		};
 	};
+// Don't spawn vehicle just get class > this is passed into rewards string
+_PrizeVehicles = [_vehClass];
 
-_vehicle = [_vehClass,[_pos,3+(random 5),random 360] call DMS_fnc_SelectOffsetPos] call DMS_fnc_SpawnNonPersistentVehicle;
-
-// setup crate iteself with items from choice
+// set-up crate itself with items from choice > this is passed into rewards string
 _crate_loot_values =
 [
 	_crate_weapons,			// Weapons
@@ -149,7 +153,7 @@ _missionAIUnits =
 _missionObjs =
 [
 	[],			// No spawned buildings
-	[_vehicle],
+	[],
 	[_crate]
 ];
 
@@ -201,7 +205,7 @@ _added =
 	_side,
 	_difficulty,
 	[
-	[["addRewardsRequest", [getplayeruid player, [["ExileMoney",_cash],_crate_loot_values,"Exile_Car_Lada_Green","Exile_Chopper_Huey_Green"]]] call ExileClient_system_network_send;],
+	[[DMS_fn_PlayerRewardsMod,[_cash, _score, _crate_loot_values, _PrizeVehicles]];],
 	[],
 	[],
 	[]
