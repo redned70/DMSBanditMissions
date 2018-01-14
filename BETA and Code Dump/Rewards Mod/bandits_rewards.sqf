@@ -132,6 +132,9 @@ _vehClass =
 // Don't spawn vehicle just get class > this is passed into rewards string
 _PrizeVehicles = [_vehClass];
 
+// Create Crate
+_crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
+
 // set-up crate itself with items from choice > this is passed into rewards string
 _crate_loot_values =
 [
@@ -144,9 +147,6 @@ _crate_loot_values =
 _nothing_list = ["Exile_Item_ToiletPaper"];
 _nothing  = [0, [1,_nothing_list], 0];
 
-// Create Crate
-_crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
-
 // Define mission-spawned AI Units
 _missionAIUnits =
 [
@@ -158,7 +158,7 @@ _missionObjs =
 [
 	[],						// No spawned buildings
 	[],						// No vehicles spawned
-	[[_crate,_nothing]]		// Nothing in crate
+	[[_crate, _nothing]]	// Nothing in crate
 ];
 
 // Define Mission Start message
