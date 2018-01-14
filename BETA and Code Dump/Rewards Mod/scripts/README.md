@@ -9,7 +9,7 @@
 <b>Beta selection of Reward Mod missions</b><br>
 Copy into your DMS.PBO\scripts <br>
 Add "class PlayerRewardsMod 			{};" to "class compiles" list in DMS.PBO config.cpp<br>
-We should be able now to call 	[DMS_fn_PlayerRewardsMod,[_cash,_score,_crate_loot_values,_PrizeVehicles];], inside missions<br>
+We should be able now to call 	[[_cash,_score,_crate_loot_values,_PrizeVehicles],DMS_fn_PlayerRewardsMod], inside missions<br>
 Save/repack/Upload to server <br>
 When the mission crashes horribly please let me know what it says :) <br><br><br>
 

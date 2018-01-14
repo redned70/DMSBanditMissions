@@ -7,8 +7,11 @@
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 <b>Beta selection of Reward Mod missions</b><br>
-Copy into your DMS.PBO\missions\bandit <br>
+Copy bandits_rewards.sqf into your DMS.PBO\missions\bandit <br>
 Add ["bandits_rewards",3], to the main config.sqf in the DMS_BanditMissionTypes section<br>
+Copy fn_PlayerRewardsMod.sqf into your DMS.PBO\scripts <br>
+Add "class PlayerRewardsMod 			{};" to "class compiles" list in DMS.PBO config.cpp<br>
+We should be able now to call 	[[_cash,_score,_crate_loot_values,_PrizeVehicles],DMS_fn_PlayerRewardsMod], inside missions<br>
 Save/repack/Upload to server <br>
 When the mission crashes horribly please let me know what it says :) <br>
 
