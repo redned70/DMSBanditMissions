@@ -4,7 +4,7 @@
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty", "_score", "_PrizeVehicles", "_nothing"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_cash", "_PossibleDifficulty", "_score", "_PrizeVehicles", "_nothing", "_nothing_list"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -105,9 +105,6 @@ _group =
 	_side 					// "bandit","hero", etc.
 ] call DMS_fnc_SpawnAIGroup;
 
-// Create Crate
-_crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
-
 // Check to see if a special vehicle class is defined in "_extraParams", and make sure it's valid, otherwise use the default (Offroad Armed)
 _vehClass =
 	if (_extraParams isEqualTo []) then
@@ -144,7 +141,11 @@ _crate_loot_values =
 ];
 
 // need to add string into crate fill or it crashes
-_nothing  = [0,0,0];
+_nothing_list = ["Exile_Item_ToiletPaper"];
+_nothing  = [0,[1,_nothing_list],0];
+
+// Create Crate
+_crate = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
 // Define mission-spawned AI Units
 _missionAIUnits =
@@ -164,7 +165,7 @@ _missionObjs =
 _msgStart = ['#FFFF00',format["A heavily armed bandit group has been spotted, take the %1 bandits out and claim their vehicle!",_difficulty]];
 
 // Define Mission Win message
-_msgWIN = ['#0080ff',"Convicts have successfully taken care of the bandit group!"];
+_msgWIN = ['#0080ff',"Convicts have successfully taken care of the bandit group, loot in your locker"];
 
 // Define Mission Lose message
 _msgLOSE = ['#FF0000',"The bandits have driven off, no loot today!"];
