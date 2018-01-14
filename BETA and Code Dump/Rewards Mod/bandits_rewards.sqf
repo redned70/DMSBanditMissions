@@ -205,7 +205,7 @@ _added =
 	_side,
 	_difficulty,
 	[
-	[[DMS_fn_PlayerRewardsMod,[_cash, _score, _crate_loot_values, _PrizeVehicles]];],
+	[[_cash, _score, _crate_loot_values, _PrizeVehicles], call DMS_fn_PlayerRewardsMod],
 	[],
 	[],
 	[]
