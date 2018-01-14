@@ -242,16 +242,16 @@ if (DMS_RareLoot) then
 if ((!isNull _playerObj) && {(_playerUID != "") && {_playerObj isKindOf "Exile_Unit_Player"}}) then
 {
 
-	["addRewardsRequest", 	[
+	["dms_mission", 	[
 								_playerUID, 
 								[
-									["ExileMoney",_cash],
 									["ExileScore",_score],
+									["ExileMoney",_cash],
 									[_crate],
 									[_prizevehicle]
 								]
 							]
-	] call ExileClient_system_network_send;	
+	] call ExileServer_system_rewards_network_addRewardsRequest;
 };
 
 
