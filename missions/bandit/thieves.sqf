@@ -41,7 +41,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
@@ -66,6 +66,7 @@ switch (_difficulty) do
 	{
 _AICount = (3 + (round (random 2)));
 _VehicleChance = 10;												//10% SpawnPersistentVehicle chance
+DMS_ai_use_launchers = false;										//overwrites main DMS config setting
 	};
 	case "moderate":
 	{
@@ -123,13 +124,13 @@ if (_VehicleChance >= (random 100)) then {
 												_pinCode = (1000 +(round (random 8999)));
 												_vehicle = [_class,_pos,_pinCode] call DMS_fnc_SpawnPersistentVehicle;
 												_msgWIN = ['#0080ff',format ["Convicts have eliminated the thieves! Looks like the thieves managed to figure out that the code was %1...",_pinCode]];
-												
+
 											} else
 											{
 												_vehicle = [_class,_pos] call DMS_fnc_SpawnNonPersistentVehicle;
 												_msgWIN = ['#0080ff',"Convicts have eliminated the thieves! Looks like the thieves managed to steal the vehicle"];
 											};
-											
+
 // Define mission-spawned AI Units
 _missionAIUnits =
 [

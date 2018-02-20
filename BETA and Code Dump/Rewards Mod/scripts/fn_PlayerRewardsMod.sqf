@@ -18,6 +18,8 @@
 
 
 */
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 
 private ["_playerObj", "_playerUID", "_crate" ];
 
@@ -37,9 +39,9 @@ exitWith
 
 
 // logging a bit
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod received from mission Cash:%1 Rep:%2 Crate:%3 Vehicle:%4", _cash, _score, _crate_loot_values, _prizevehicles];
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 
 
 // find nearest player and get their UID
@@ -57,9 +59,9 @@ if  ( _cash == "" ) then { _cash = 0; } else { _cash = _cash; };
 if  ( _score == "" ) then { _score = 0; } else { _score = _score; };
 
 // logging a bit
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod generating Cash:%1 Rep:%2 playerUID:%3", _cash, _score, _playerUID];
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 
 
 // need to use part of DMS_fnc_FillCrate to actually parse through prize objects so it functions the same as normal
@@ -256,9 +258,9 @@ if ((!isNull _playerObj) && {(_playerUID != "") && {_playerObj isKindOf "Exile_U
 
 
 // logging a bit
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 diag_log format ["fnc_DMS check :: DMS_fn_PlayerRewardsMod generating addRewardsRequest playerUID:%1 ExileMoney:%2 ExileScore:%3 CrateItems:%4 Vehicle:%5", _playerUID, _cash, _score, _crate, _prizevehicle];
-diag_log format ["******************************************************************************"];
+diag_log "********************************DMS_fn_PlayerRewardsMod**********************************************";
 
 
 	if (DMS_DEBUG) then

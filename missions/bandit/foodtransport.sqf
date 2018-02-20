@@ -40,14 +40,14 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
 								"easy",
 								"easy",
 								"moderate",
-								"moderate",								
+								"moderate",
 								"moderate",
 								"moderate",
 								"moderate",
@@ -65,6 +65,7 @@ _AICount = (3 + (round (random 2)));
 _crate_weapons 		= 0;
 _crate_items 		= (10 + (round (random 5)));
 _crate_backpacks 	= 0;
+DMS_ai_use_launchers = false;										//overwrites main DMS config setting
 	};
 	case "moderate":
 	{

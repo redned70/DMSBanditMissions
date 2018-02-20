@@ -41,7 +41,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
@@ -63,6 +63,7 @@ _VehicleChance = 10;												//10% SpawnPersistentVehicle chance
 _crate_weapons 		= (2 + (round (random 3)));
 _crate_items 		= (2 + (round (random 4)));
 _crate_backpacks 	= (1 + (round (random 1)));
+DMS_ai_use_launchers = false;										//overwrites main DMS config setting
 	};
 	case "moderate":
 	{
@@ -70,7 +71,7 @@ _AICount = (4 + (round (random 2)));
 _VehicleChance = 20;												//20% SpawnPersistentVehicle chance
 _crate_weapons 		= (4 + (round (random 5)));
 _crate_items 		= (4 + (round (random 6)));
-_crate_backpacks 	= (2 + (round (random 1)));				
+_crate_backpacks 	= (2 + (round (random 1)));
 	};
 	case "difficult":
 	{
@@ -93,8 +94,8 @@ _crate_backpacks 	= (4 + (round (random 1)));
 
 //use by all
 _crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_PlasticBottleFreshWater","Exile_Item_Vishpirin","Exile_Item_PlasticBottleFreshWater","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-							
-								
+
+
 _group =
 [
 	_pos,					// Position of AI

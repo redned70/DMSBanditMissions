@@ -64,6 +64,7 @@ switch (_difficulty) do
 	case "easy":
 	{
 _AICount = (4 + (round (random 3)));
+DMS_ai_use_launchers = false;										//overwrites main DMS config setting
 	};
 	case "moderate":
 	{

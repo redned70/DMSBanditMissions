@@ -217,7 +217,11 @@ _added =
 ] call DMS_fnc_AddMissionToMonitor;
 
 // logging a bit
+diag_log "********************************DMS_bandits_rewards**********************************************";
+diag_log "********************************DMS_bandits_rewards**********************************************";
 diag_log format ["DMS check :: mission %1 sending the following to DMS_fn_PlayerRewardsMod Cash:%2 Rep:%3 Crate:%4 Vehicle:%5", _missionName, _cash, _score, _crate_loot_values, _prizevehicles];
+diag_log "********************************DMS_bandits_rewards**********************************************";
+diag_log "********************************DMS_bandits_rewards**********************************************";
 
 // Check to see if it was added correctly, otherwise delete the stuff
 if !(_added) exitWith

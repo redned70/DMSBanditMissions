@@ -41,7 +41,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -64,6 +64,7 @@ _VehicleChance = 40;												//40% Spawn 2 Vehicles chance
 _crate_weapons 		= (2 + (round (random 3)));
 _crate_items 		= (2 + (round (random 4)));
 _crate_backpacks 	= (1 + (round (random 1)));
+DMS_ai_use_launchers = false;										//overwrites main DMS config setting
 	};
 	case "moderate":
 	{
@@ -91,7 +92,7 @@ _crate_items 		= (5 + (round (random 10)));
 _crate_backpacks 	= (4 + (round (random 1)));
 	};
 };
-								
+
 _group =
 [
 	_pos,					// Position of AI
@@ -108,7 +109,7 @@ _rndDir = random 180;
 
 _wreck = createVehicle ["Land_FuelStation_Build_F",[_pos,10+(random 5),_rndDir+90] call DMS_fnc_SelectOffsetPos,[], 0, "CAN_COLLIDE"];
 
-_PossibleVehicleClass 		= [	
+_PossibleVehicleClass 		= [
 								"Exile_Car_SUV_Red",
 								"Exile_Car_SUV_Black",
 								"Exile_Car_SUV_Grey",
@@ -160,9 +161,9 @@ _missionObjs =
 	[_wreck],
 	[_vehicle1],
 	[[_crate1,_crate_loot_values1]]
-];			
-									};																	
-								
+];
+									};
+
 // define start messages with difficulty choice
 _msgStart = ['#FFFF00',format["A local car dealership is being robbed by %1 bandits. Stop them!",_difficulty]];
 
