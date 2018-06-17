@@ -1,5 +1,26 @@
 easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
-v3.0
+v4.0
+
+				EASY
+					_RocketChance 		= -1;											// no rockets on easy - this overrides DMS config
+					_MineChance1 		= -1;											// no mines on easy - this overrides DMS config
+					_MineNumber1 		= (2 + (round (random 10)));					// don't really need this if chance = -1 but here for changes if needed
+					_MineRadius1 		= (50 + (round (random 15)));					// don't really need this if chance = -1 but here for changes if needed
+
+				HARDCORE
+					_RocketChance 		= 50;											// 50% chance of rockets - this overrides DMS config
+					_MineChance1 		= 50;											// 50% chance of mines - this overrides DMS config
+					_MineNumber1 		= (5 + (round (random 10)));  					// 5 to 15 mines can spawn if triggered
+					_MineRadius1 		= (50 + (round (random 15))); 					// radius around center point is 50 to 65
+
+
+set _RocketChance = -1; for no rockets
+set _MineChance1 = -1;	for no mines
+number and radius can be adjusted but don't go too high on mine numbers or too low on radius or all hell will break loose
+Mines will vanish on mission win
+
+Missions should automatically over ride DMS configuration file settings
+
 
 ******************** General and lessons learned ********************
 1. The new mission "nedbandit1_mission" was an attempt to compile as many different code possibilities into one mission as possible and took a while to work out and i borrowed code (thanks second_coming) and got help from lots of the community. It is a fully functioning mission and i currently have it live on my server.

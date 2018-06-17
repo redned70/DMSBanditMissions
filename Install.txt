@@ -1,18 +1,98 @@
 *******************************************************
-	DMS Bandit Missions 
+	DMS Bandit Missions
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned
-	Created by [CiC]red_ned using templates by eraser1 
-	17 years of CiC http://cic-gaming.co.uk
+	Created by [CiC]red_ned using templates by eraser1
+	19 years of CiC http://cic-gaming.co.uk
 *******************************************************
 	For ANY MAP.
 	Running on DMS System
-	Built on DMS_Version: "July 3, 2016"
+	DMS_Version: "September 7, 2017"
 *******************************************************
+
+<Updated June 2018 > V4.0 - Release
+Now with rocket and mine chance - mines cleaned on mission win
+Mines clear up on mission win
+Big tidy on code to make it more easy to edit
+*******************************************************
+
+New functions:
+				EASY
+					_RocketChance 		= -1;											// no rockets on easy - this overrides DMS config
+					_MineChance1 		= -1;											// no mines on easy - this overrides DMS config
+					_MineNumber1 		= (2 + (round (random 10)));					// don't really need this if chance = -1 but here for changes if needed
+					_MineRadius1 		= (50 + (round (random 15)));					// don't really need this if chance = -1 but here for changes if needed
+
+				HARDCORE
+					_RocketChance 		= 50;											// 50% chance of rockets - this overrides DMS config
+					_MineChance1 		= 50;											// 50% chance of mines - this overrides DMS config
+					_MineNumber1 		= (10 + (round (random 15)));  					// 10 to 25 mines can spawn if triggered
+					_MineRadius1 		= (60 + (round (random 40))); 					// radius around center point is 60 to 100m
+
+
+set _RocketChance = -1; for no rockets
+set _MineChance1 = -1;	for no mines
+number and radius can be adjusted but don't go too high on mine numbers or too low on radius or all hell will break loose
+mines variate the center point a little so it doesn't always spawn under the crate and so offsets +/- 5m
+Mines will vanish on mission win
+There are little mine signs around the edge of the minefield (3 or 4 max) which are hard to spot but also clean up on win
+Missions should automatically over ride MOST DMS configuration file settings
+
+
+These settings are set up inside each mission
+DMS_ai_use_launchers
+DMS_ai_use_launchers_chance
+DMS_despawnMines_onCompletion
+
+
+
+Just in case my config settings look like this:
+
+	/*Mine settings*/
+	DMS_SpawnMinefieldForEveryMission	= false;					// DIABLE FOR SAFETY 
+	DMS_SpawnMinesAroundMissions		= true;						// ENABLE FOR SAFETY
+	DMS_despawnMines_onCompletion		= true;						// ENABLE FOR SAFETY
+	DMS_MineInfo_easy					= [5,50];					// DOESN'T AFFECT MISSION SPAWNED MINES
+	DMS_MineInfo_moderate				= [10,50];					// DOESN'T AFFECT MISSION SPAWNED MINES
+	DMS_MineInfo_difficult				= [15,75];					// DOESN'T AFFECT MISSION SPAWNED MINES
+	DMS_MineInfo_hardcore				= [25,100];					// DOESN'T AFFECT MISSION SPAWNED MINES
+	<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+	/* YOU MAY NEED TO CHECK IN CONFIG */
+	DMS_SpawnMineWarningSigns			= true;						// ENABLE FOR SAFETY
+	<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+	DMS_BulletProofMines				= false;					// CHOICE IS YOURS ON THIS
+	/*Mine settings*/
+	
+	/*Launcher settings*/
+	DMS_ai_use_launchers				= false;					// DIABLE FOR SAFETY BUT MAY AFFECT STATIC MISSIONS
+	DMS_ai_launchers_per_group			= 1;						// CHOICE IS YOURS ON THIS
+	DMS_ai_use_launchers_chance			= 100;						// CHOICE IS YOURS ON THIS - MISSION SETS IT UP BUT MAY AFFECT STATIC MISSIONS
+	DMS_AI_launcher_ammo_count			= 2;						// CHOICE IS YOURS ON THIS
+	DMS_ai_remove_launchers				= true;						// CHOICE IS YOURS ON THIS
+	DMS_AI_wep_launchers_AT =			[							// AT Launchers - CHOICE IS YOURS ON THIS
+											"launch_RPG7_F",
+											"launch_RPG32_F"
+										];
+	DMS_AI_wep_launchers_AA =			[							// AA Launchers - CHOICE IS YOURS ON THIS
+											"launch_RPG7_F",
+											"launch_RPG32_F"
+										];
+	/*Launcher settings*/
+
+		IF ANY OF THE SETTINGS AFFECT YOUR STATIC MISSIONS THEN ADD THIS TO THE TOP OF EACH MISSION
+	
+add into the private ["_temp"];			// remember to add a comma after every private function name except the last one
+add near the top of mission
+
+	_temp = DMS_ai_use_launchers;
+	DMS_ai_use_launchers = true;					// Turn on launchers - ignore DMS-Config
+*******************************************************
+
+
 Updated 10 March 2017 > V3.1 - Release
 Added new nedcashbandits_mission with %vehicle and cash prize
 
 Updated 16 July 2016 > V 3.0 - Release
-1. Changed the random call from 
+1. Changed the random call from
 _difficulty = _PossibleDifficulty call BIS_fnc_selectRandom;
 to
 _difficulty = selectRandom _PossibleDifficulty;
@@ -81,14 +161,14 @@ Installing.
 											["thieves",3],
 											["walmart",3]
 										];
-										
-										
+
+
 6.	Repack config.sqf and folders into PBO
 7. 	Put a3_dms.pbo back into /@ExileServer/addons/ on server and start.
 
-No BE or InfiSTAR additions apart from what you installed to run DMS. this will not run without DMS. 
+No BE or InfiSTAR additions apart from what you installed to run DMS. this will not run without DMS.
 
-You can edit the mission text by changing the following in sqf mission files (depending which one you want to edit) 
+You can edit the mission text by changing the following in sqf mission files (depending which one you want to edit)
 // Define Mission Start message
 _msgStart = ['#FFFF00',"A DIY storage is under attack! Go kill the attackers"];
 
@@ -105,7 +185,7 @@ _missionName = "Building Materials";
 Random choice of difficulty is now done from selecting from a list
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"moderate",
 								"difficult",
@@ -114,7 +194,7 @@ _PossibleDifficulty		= 	[
 
 Each difficulty has 25% chance but you can manipulate it to be more inclined to chose a difficulty over another by adding more lines e.g.
 
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -123,7 +203,7 @@ _PossibleDifficulty		= 	[
 							];
 easy = 40% rest is 20% each
 
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"easy",
@@ -150,7 +230,7 @@ if (_difficulty isEqualTo "moderate") then {
 _AICount = (4 + (round (random 2)));
 _crate_weapons 		= (4 + (round (random 5)));
 _crate_items 		= (4 + (round (random 6)));
-_crate_backpacks 	= 2;			
+_crate_backpacks 	= 2;
 								};
 //difficult
 if (_difficulty isEqualTo "difficult") then {
@@ -159,7 +239,7 @@ _crate_weapons 		= (6 + (round (random 7)));
 _crate_items 		= (6 + (round (random 8)));
 _crate_backpacks 	= 3;
 								};
-//hardcore								
+//hardcore
 if (_difficulty isEqualTo "hardcore") then {
 _AICount = (4 + (round (random 4)));
 _crate_weapons 		= (8 + (round (random 9)));

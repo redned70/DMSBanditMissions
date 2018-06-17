@@ -3,9 +3,10 @@
 	Mission gives % chance of persistent vehicle
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
 	based on work by Defent and eraser1
+	now with rocket and mine chance - mines cleaned on mission win - updated June 2018
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_VehicleChance"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate1", "_vehicle", "_pinCode", "_class", "_veh", "_crate_loot_values1", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_crate_weapons", "_crate_weapon_list", "_crate_items", "_crate_item_list", "_crate_backpacks", "_PossibleDifficulty", "_VehicleChance", "_RocketChance", "_MineChance1", "_MineNumber1", "_MineRadius1", "_Minefield1", "_cleanMines1", "_temp", "_temp2", "_temp3", "_logLauncher"];
 
 // For logging purposes
 _num = DMS_MissionCount;
@@ -41,7 +42,7 @@ if !(_OK) exitWith
 };
 
 //create possible difficulty add more of one difficulty to weight it towards that
-_PossibleDifficulty		= 	[	
+_PossibleDifficulty		= 	[
 								"easy",
 								"easy",
 								"moderate",
@@ -57,86 +58,138 @@ _difficulty = selectRandom _PossibleDifficulty;
 switch (_difficulty) do
 {
 	case "easy":
-	{
-_AICount = (4 + (round (random 4)));
-_VehicleChance = 10;												//10% SpawnPersistentVehicle chance
-_crate_weapons 		= (1 + (round (random 1)));
-_crate_items 		= (3 + (round (random 3)));
-_crate_backpacks 	= (1 + (round (random 1)));
-	};
+				{
+					_AICount 			= (4 + (round (random 4)));
+					_VehicleChance 		= 10;											//10% SpawnPersistentVehicle chance
+					_crate_weapons 		= (1 + (round (random 1)));
+					_crate_items 		= (3 + (round (random 3)));
+					_crate_backpacks 	= (1 + (round (random 1)));
+					_RocketChance 		= -1;											// no rockets on easy - this overrides DMS config
+					_MineChance1 		= -1;											// no mines on easy - this overrides DMS config
+					_MineNumber1 		= (3 + (round (random 5)));						// don't really need this if chance = -1 but here for changes if needed
+					_MineRadius1 		= (30 + (round (random 15)));					// don't really need this if chance = -1 but here for changes if needed
+				};
 	case "moderate":
-	{
-_AICount = (6 + (round (random 4)));
-_VehicleChance = 20;												//20% SpawnPersistentVehicle chance
-_crate_weapons 		= (2 + (round (random 1)));
-_crate_items 		= (6 + (round (random 3)));
-_crate_backpacks 	= (2 + (round (random 1)));					
-	};
+				{
+					_AICount 			= (6 + (round (random 4)));
+					_VehicleChance 		= 20;											//20% SpawnPersistentVehicle chance
+					_crate_weapons 		= (2 + (round (random 1)));
+					_crate_items 		= (6 + (round (random 3)));
+					_crate_backpacks 	= (2 + (round (random 1)));
+					_RocketChance 		= 5;											// 5% chance of rockets - this overrides DMS config
+					_MineChance1 		= 5;											// 5% chance of mines - this overrides DMS config
+					_MineNumber1 		= (5 + (round (random 10)));					// 5 to 15 mines can spawn if triggered
+					_MineRadius1 		= (40 + (round (random 25)));					// radius around center point is 40 to 65
+				};
 	case "difficult":
-	{
-_AICount = (8 + (round (random 4)));
-_VehicleChance = 30;												//30% SpawnPersistentVehicle chance
-_crate_weapons 		= (3 + (round (random 1)));
-_crate_items 		= (9 + (round (random 3)));
-_crate_backpacks 	= (3 + (round (random 1)));
-	};
+				{
+					_AICount 			= (8 + (round (random 4)));
+					_VehicleChance 		= 30;											//30% SpawnPersistentVehicle chance
+					_crate_weapons 		= (3 + (round (random 1)));
+					_crate_items 		= (9 + (round (random 3)));
+					_crate_backpacks 	= (3 + (round (random 1)));
+					_RocketChance 		= 25; 											// 25% chance of rockets - this overrides DMS config
+					_MineChance1 		= 25; 											// 25% chance of mines - this overrides DMS config
+					_MineNumber1 		= (8 + (round (random 12)));  					// 8 to 20 mines can spawn if triggered
+					_MineRadius1 		= (50 + (round (random 30))); 					// radius around center point is 50 to 80
+				};
 	//case "hardcore":
 	default
-	{
-_AICount = (10 + (round (random 4)));
-_VehicleChance = 90;												//90% SpawnPersistentVehicle chance
-_crate_weapons 		= (4 + (round (random 1)));
-_crate_items 		= (12 + (round (random 6)));
-_crate_backpacks 	= (4 + (round (random 1)));
-	};
+				{
+					_AICount 			= (10 + (round (random 4)));
+					_VehicleChance 		= 90;											//90% SpawnPersistentVehicle chance
+					_crate_weapons 		= (4 + (round (random 1)));
+					_crate_items 		= (12 + (round (random 6)));
+					_crate_backpacks 	= (4 + (round (random 1)));
+					_RocketChance 		= 50;											// 50% chance of rockets - this overrides DMS config
+					_MineChance1 		= 50;											// 50% chance of mines - this overrides DMS config
+					_MineNumber1 		= (10 + (round (random 15)));  					// 10 to 25 mines can spawn if triggered
+					_MineRadius1 		= (60 + (round (random 40))); 					// radius around center point is 60 to 100
+				};
 };
+
+//testing mechanics
+					//_RocketChance = 100;
+					//_MineChance1 = 100;
+
+// Possible Minefield Position = _pos; but randomised
+_Minefield1 = [(_pos select 0) -(5+(random 5)),(_pos select 1)+(5+(random 5)),(_pos select 2)];
+
+//add launchers if chance great enough
+if (_RocketChance >= (random 100)) then {
+											_temp = DMS_ai_use_launchers;
+											DMS_ai_use_launchers = true;					// Turn on launchers - ignore DMS-Config
+											_temp2 = DMS_ai_use_launchers_chance;
+											DMS_ai_use_launchers_chance = 100;				// %chance already done so ignore DMS-Config
+											_logLauncher = "1";								// Test logging, can turn off
+										} else
+										{
+											_temp = DMS_ai_use_launchers;
+											DMS_ai_use_launchers = false;					// Turn off launchers - ignore DMS-Config
+											_temp2 = DMS_ai_use_launchers_chance;
+											DMS_ai_use_launchers_chance = 0;				// %chance already done so ignore DMS-Config
+											_logLauncher = "0";								// Test logging, can turn off
+										};
+
+// Make sure mine clean up is on, but we will handle it too
+_temp3 = DMS_despawnMines_onCompletion;
+DMS_despawnMines_onCompletion = true;
+
+//add minefields if chance great enough
+if (_MineChance1 >= (random 100)) then 	{
+							_cleanMines1 = 		[
+													_Minefield1,
+													_difficulty,
+													[_MineNumber1,_MineRadius1],
+													_side
+												] call DMS_fnc_SpawnMinefield;
+										} else
+										{
+							_cleanMines1 = [];
+										};
 
 //used by all
 _crate_item_list	= ["Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_Bandage","Exile_Item_Vishpirin"];
 
-_group =
-[
-	_pos,					// Position of AI
-	_AICount,				// Number of AI
-	_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
-	"assault", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
-	_side 					// "bandit","hero", etc.
-] call DMS_fnc_SpawnAIGroup;
+_group = 	[
+				_pos,					// Position of AI
+				_AICount,				// Number of AI
+				_difficulty,			// "random","hardcore","difficult","moderate", or "easy"
+				"assault", 				// "random","assault","MG","sniper" or "unarmed" OR [_type,_launcher]
+				_side 					// "bandit","hero", etc.
+			] call DMS_fnc_SpawnAIGroup;
 
 // add vehicle patrol
-_veh =
-[
-	[
-[(_pos select 0) -50,(_pos select 1)+50,0]
-	],
-	_group,
-	"assault",
-	_difficulty,
-	_side
-] call DMS_fnc_SpawnAIVehicle;
+_veh = 	[
+			[
+				[(_pos select 0) -50,(_pos select 1)+50,0]
+			],
+			_group,
+			"assault",
+			_difficulty,
+			_side
+		] call DMS_fnc_SpawnAIVehicle;
 
 // add static guns
-_staticGuns =
-[
-	[
-		// make statically positioned relative to centre point and randomise a little
-		[(_pos select 0) -(5-(random 2)),(_pos select 1)+(5-(random 2)),0],
-		[(_pos select 0) -(5+(random 2)),(_pos select 1)-(5+(random 2)),0],
-		[(_pos select 0) +(5+(random 2)),(_pos select 1)+(5+(random 2)),0],
-		[(_pos select 0) +(5-(random 2)),(_pos select 1)-(5-(random 2)),0]
-	],
-	_group,
-	"assault",
-	"static",
-	"bandit"
-] call DMS_fnc_SpawnAIStaticMG;
+_staticGuns = 	[
+					[
+						// make statically positioned relative to centre point and randomise a little
+						[(_pos select 0) -(5-(random 2)),(_pos select 1)+(5-(random 2)),0],
+						[(_pos select 0) -(5+(random 2)),(_pos select 1)-(5+(random 2)),0],
+						[(_pos select 0) +(5+(random 2)),(_pos select 1)+(5+(random 2)),0],
+						[(_pos select 0) +(5-(random 2)),(_pos select 1)-(5-(random 2)),0]
+					],
+					_group,
+					"assault",
+					"static",
+					"bandit"
+				] call DMS_fnc_SpawnAIStaticMG;
 
 // Create Buildings - use seperate file as found in the mercbase mission
-_baseObjs =
-[
-	"nedmed1_objects",
-	_pos
-] call DMS_fnc_ImportFromM3E;
+_baseObjs = 	[
+					"nedmed1_objects",
+					_pos
+				] call DMS_fnc_ImportFromM3E;
 
 // is %chance greater than random number
 if (_VehicleChance >= (random 100)) then {
@@ -153,26 +206,24 @@ if (_VehicleChance >= (random 100)) then {
 _crate1 = ["Box_NATO_Wps_F",_pos] call DMS_fnc_SpawnCrate;
 
 // setup crate iteself with items
-_crate_loot_values1 =
-[
-	_crate_weapons,		// Weapons
-	[_crate_items,_crate_item_list],		// Items + selection list
-	_crate_backpacks 		// Backpacks
-];
+_crate_loot_values1 = 	[
+							_crate_weapons,		// Weapons
+							[_crate_items,_crate_item_list],		// Items + selection list
+							_crate_backpacks 		// Backpacks
+						];
 
 // Define mission-spawned AI Units
-_missionAIUnits =
-[
-	_group 		// We only spawned the single group for this mission
-];
+_missionAIUnits = 	[
+						_group 		// We only spawned the single group for this mission
+					];
 
 // Define mission-spawned objects and loot values
-_missionObjs =
-[
-	_staticGuns+_baseObjs+[_veh],		// armed AI vehicle, base objects, and static guns
-	[_vehicle],							//this is prize vehicle
-	[[_crate1,_crate_loot_values1]]		//this is prize crate
-];
+_missionObjs = 	[
+					_staticGuns+_baseObjs+[_veh],		// armed AI vehicle, base objects, and static guns
+					[_vehicle],							//this is prize vehicle
+					[[_crate1,_crate_loot_values1]],
+					_cleanMines1
+				];
 
 // define start messages with difficulty choice
 _msgStart = ['#FFFF00',format["A field hospital is under attack by bandits. Go kill the %1 attackers!",_difficulty]];
@@ -185,43 +236,44 @@ _msgLOSE = ['#FF0000',"The attackers killed the medics and stole everything!"];
 // Define mission name (for map marker and logging)
 _missionName = "Hospital Attack";
 
+// logging for check purposes _missionName _cleanMines1 comment out if removed _logLauncher lines
+diag_log format ["DMS Info :: Mission %1 , Mine cleanup %2 , Launchers %3 , minefield centered at %4",_missionName,_cleanMines1,_logLauncher,_Minefield1];
+
 // Create Markers - same for all levels
-_markers =
-[
-	_pos,
-	_missionName,
-	_difficulty
-] call DMS_fnc_CreateMarker;
+_markers = 	[
+				_pos,
+				_missionName,
+				_difficulty
+			] call DMS_fnc_CreateMarker;
 
 // Record time here (for logging purposes, otherwise you could just put "diag_tickTime" into the "DMS_AddMissionToMonitor" parameters directly)
 _time = diag_tickTime;
 
 // Parse and add mission info to missions monitor
-_added =
-[
-	_pos,
-	[
-		[
-			"kill",
-			_group
-		],
-		[
-			"playerNear",
-			[_pos,DMS_playerNearRadius]
-		]
-	],
-	[
-		_time,
-		(DMS_MissionTimeOut select 0) + random((DMS_MissionTimeOut select 1) - (DMS_MissionTimeOut select 0))
-	],
-	_missionAIUnits,
-	_missionObjs,
-	[_missionName,_msgWIN,_msgLOSE],
-	_markers,
-	_side,
-	_difficulty,
-	[]
-] call DMS_fnc_AddMissionToMonitor;
+_added = 	[
+				_pos,
+				[
+					[
+						"kill",
+						_group
+					],
+					[
+						"playerNear",
+						[_pos,DMS_playerNearRadius]
+					]
+				],
+				[
+					_time,
+					(DMS_MissionTimeOut select 0) + random((DMS_MissionTimeOut select 1) - (DMS_MissionTimeOut select 0))
+				],
+				_missionAIUnits,
+				_missionObjs,
+				[_missionName,_msgWIN,_msgLOSE],
+				_markers,
+				_side,
+				_difficulty,
+				[]
+			] call DMS_fnc_AddMissionToMonitor;
 
 // Check to see if it was added correctly, otherwise delete the stuff
 if !(_added) exitWith
@@ -235,7 +287,7 @@ if !(_added) exitWith
 	} forEach _missionAIUnits;
 
 	_cleanup pushBack ((_missionObjs select 0)+(_missionObjs select 1));
-	
+
 	{
 		_cleanup pushBack (_x select 0);
 	} foreach (_missionObjs select 2);

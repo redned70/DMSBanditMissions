@@ -3,6 +3,12 @@
 >>	Missions spreadsheet with their setups here: https://drive.google.com/open?id=1wy-j9QHf1ZTl_iK01raut-xZ8p9ulDHf506vkFgyieU
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+<b>Updated June 2018 > V4.0 - Release</b><br>
+Now with rocket and mine chance - mines cleaned on mission win<br>
+Mines clear up on mission win<br>
+Big tidy on code to make it more easy to edit<br>
+<br><br>
+
 <b>Updated 14 March 2017 > V3.1 - Release</b><br>
 Fixed - missing bracket on cashbandits mission <br>
 Fixed - logic off on ifrit mission for vehicle <br>
@@ -65,23 +71,8 @@ nedoffroad_mission_em
 nedstrider_mission_dh
 nedural_mission_emd
 
-2. Adjusted little bird mission to select from all possible little bird variations.
-nedlittlebird_mission_mdh
-
-3. Added some extra randomising of loot crate contents.
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 Updates March 2016 > V 1.0 - Release
-1. Fixed incorrect name on 3 custom missions in error log just in case.
-2. Added persistant vehicle to the nedsnipercamp_mission_hard mission.
-3. Swapped any none default Exile vehicles for normal Exile vehicles.
-4. Created randomising for difficulty of each custom mission in one file.
-5. Added suffix to show which types of mission are in the file 
-_emdh 	= easy, moderate, difficult, hardcore
-_emd 	= easy, moderate, difficult
-_md 	= moderate, difficult
-_dh		= difficult, hardcore
-etc .....
-6. Added a few new custom missions.
-7. Completed converting all stock missions to have multiple options of difficulty.
+
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

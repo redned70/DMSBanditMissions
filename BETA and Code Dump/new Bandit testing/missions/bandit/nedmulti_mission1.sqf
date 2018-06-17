@@ -4,10 +4,9 @@
 	Items and cash are loaded into vehicle so no crate
 	based on work by Defent and eraser1
 	easy/mod/difficult/hardcore - reworked by [CiC]red_ned http://cic-gaming.co.uk
-	<<<<<<<<<<<<< This mission doesnt work due to messages syntax >>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 
-private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate", "_vehicle", "_pinCode", "_class", "_veh", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass", "_VehicleChance", "_Enemies", "_PossibleEnemies", "_Vehicletype", "_PossibleVehicletype", "_Dosomething", "_PossibleDosomething", "_Possiblevehiclecar", "_Possiblevehiclelandrover", "_Possiblevehiclevan", "_Possiblevehicletruck", "_Possiblevehicleoffroad", "_cash", "_ned_VehicleItems", "_vehClass", "_ArmedVehicles", "_unArmedVehicles", "_missionName_pc", "_msgStart_pc", "_msgWIN_pc", "_msgWINpin_pc", "_msgLOSE_pc"];
+private ["_num", "_side", "_pos", "_OK", "_difficulty", "_extraParams", "_AICount", "_group", "_type", "_launcher", "_staticGuns", "_crate", "_vehicle", "_pinCode", "_class", "_veh", "_missionAIUnits", "_missionObjs", "_msgStart", "_msgWIN", "_msgLOSE", "_missionName", "_markers", "_time", "_added", "_cleanup", "_baseObjs", "_PossibleDifficulty", "_PossibleVehicleClass", "_VehicleClass", "_VehicleChance", "_Enemies", "_PossibleEnemies", "_Vehicletype", "_PossibleVehicletype", "_Dosomething", "_PossibleDosomething", "_Possiblevehiclecar", "_Possiblevehiclelandrover", "_Possiblevehiclevan", "_Possiblevehicletruck", "_Possiblevehicleoffroad", "_cash", "_ned_VehicleItems", "_vehClass", "_ArmedVehicles", "_unArmedVehicles", "_missionName_pc", "_msgStart_pc", "_msgWIN_pc", "_msgWINpin_pc", "_msgLOSE_pc", "_RocketChance", "_MineChance1", "_MineNumber1", "_MineRadius1", "_Minefield1", "_cleanMines1", "_temp", "_temp2", "_temp3", "_logLauncher"];
 
 // For logging purposes
 _num = DMS_MissionCount;
