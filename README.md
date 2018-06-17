@@ -10,7 +10,7 @@ DMS Bandit Missions Pack<br>
 Now with rocket and mine chance - mines cleaned on mission win<br>
 Mines clear up on mission win<br>
 Big tidy on code to make it more easy to edit<br>
-Missions should automatically over ride DMS configuration file settings>br>
+Missions should automatically over ride DMS configuration file settings<br>
 <br><br>
 
 <b>Updated 25 March 2017 > V3.1 - Beta Section Added</b><br>
